@@ -1,9 +1,14 @@
-# Image processing
+# BialJam
 
 Project was created by group for "Teamwork project" class
 
-Using Python 3.6, Django 1.11
-Learning how create tests, how use Jira, Git and Scrum methods during making project.
+Uses Python 3.6, Django 1.11
+
+Application supports managing BialJam organization.
+
+It helps users with creating accounts, teams, managing their bio and games.
+It also provides gallery and any important informationa about contest.
+
 
 
 
