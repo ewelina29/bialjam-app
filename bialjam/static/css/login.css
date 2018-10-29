@@ -1,0 +1,81 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+input{
+  text-indent: 5px;
+  font-size: 1.5vw;
+  height: 2vw;
+  /*border-radius: 50px;*/
+  width: 100%;
+  line-height: normal;
+}
+label{
+  margin: 0px;
+}
+input::-webkit-input-placeholder {
+    font-size: 1.5vw;
+
+}
+button:focus, input:focus{
+  outline: none;
+}
+p{
+  padding: 0.5vw 0vw;
+  margin: 0px;
+  display: flex;
+}
+#logindiv{
+  padding-top: 6vw;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.buttondiv{
+  padding: 0.5vw 0vw;
+}
+ #submitbutton{
+   font-size: 1.5vw;
+   background-color: #ABE0F8;
+   padding: 0.4vw 0vw;
+   /*border-radius: 50px;*/
+   width: 100%;
+   font-family: siteFont;
+ }
+#logintext{
+  color: #FFFFFF;
+  font-size: 3vw;
+  padding-left: 4vw;
+  font-family: siteFont;
+}
+#labels{
+  font-size: 1.6vw;
+  padding: 0.5vw 0vw;
+  color: #FFFFFF;
+  font-family: siteFont;
+}
+.contentdiv{
+  width: 100%;
+  display: flex;
+}
+.labinpdiv{
+  padding: 0px;
+  margin: 0px;
+}
+#resetdiv{
+  text-align: right;
+}
+#resetpasword{
+  color: #FFFFFF;
+  font-family: siteFont;
+  font-size: 1vw;
+  text-align: right;
+}
+
+.errorlist{
+    color: #FFFFFF;
+  font-family: siteFont;
+  font-size: 1.3vw;
+  padding-left: 0px;
+  list-style-type: none;
+
+}

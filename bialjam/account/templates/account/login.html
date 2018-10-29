@@ -1,0 +1,41 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{%  load i18n %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css'%}">
+
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" id="logindiv">
+  <form method="post" class="loginPanel" novalidate >
+    {% csrf_token %}
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" class="buttondiv">
+      <p id="logintext">{% trans 'Log in' %}</p>
+    </div>
+    {% for p in form %}
+    <div class="contentdiv">
+      <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 labinpdiv">
+        <p id="labels">{{ p.label_tag }}</p>
+      </div>
+      <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 labinpdiv">
+        <p> {{ p }}</p>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 labinpdiv">
+      <p> {{ p.errors }}</p>
+    </div>
+    {% endfor %}
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 labinpdiv">
+      <p> {{ form.non_field_errors }}</p>
+      </div>
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" id="resetdiv">
+      <a id="resetpasword" href="/accounts/password_reset/">Resetuj hasło</a>
+    </div>
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7" class="buttondiv">
+      <button type="submit" id="submitbutton">{% trans 'Log in' %}</button>
+    </div>
+  </form>
+</div>
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ></div>
+{% endblock  %}

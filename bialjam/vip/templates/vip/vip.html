@@ -1,0 +1,48 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/vip.css' %}">
+<script src="{% static 'scripts/swichTabs.js' %}"></script>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 list-container">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 tab-button" id="first-tab">
+        <p class="title">{% trans 'Jury' %}</p>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 tab-button" id="second-tab">
+        <p class="title">{% trans 'Lecturer' %}</p>
+    </div>
+    <div id="first" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-container">
+        {% for vip in vip_list %}
+        {% if vip.guest_as == 'JU' or vip.guest_as == 'BO' %}
+        <a class="vip-det" href="/vip/user_details/{{ vip.id }}/">
+            <div class="info">
+                {% if vip.image_path %}
+                <img class="avatar" src="{{ vip.image_path.url }}"/>
+                {% else %}
+                <img class="avatar" src="{% static 'icons/usericon.svg' %}">
+                {% endif %}
+                <span class="name">{{ vip.name }} {{ vip.surname }}</span>
+            </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div id="second" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-container">
+        {% for vip in vip_list %}
+        {% if vip.guest_as == 'LE' or vip.guest_as == 'BO' %}
+        <a class="vip-det" href="/vip/user_details/{{ vip.id }}/">
+            <div class="info">
+                {% if vip.image_path %}
+                <img class="avatar" src="{{ vip.image_path.url }}"/>
+                {% else %}
+                <img class="avatar" src="{% static 'icons/usericon.svg' %}">
+                {% endif %}
+                <span class="name">{{ vip.name }} {{ vip.surname }}</span>
+            </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

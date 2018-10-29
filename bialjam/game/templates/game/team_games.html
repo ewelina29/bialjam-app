@@ -1,0 +1,92 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static '/css/team_games.css' %}">
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding tabs">
+    <a href="/team/teams">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" >
+            <p class="title">{% trans 'Team List' %}</p>
+        </div>
+    </a>
+    <a href="/team/my-team">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" >
+            <p class="title">{% trans 'Details' %}</p>
+        </div>
+    </a>
+    <a href="/games/team-games">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="activeTab">
+            <p class="title">{% trans 'Games' %}</p>
+        </div>
+    </a>
+    <a href="/team/request-user">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" >
+            <p class="title">{% trans 'Messages' %}</p>
+        </div>
+    </a>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-set-0">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 padding-set-0">
+
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 padding-set-0" id="team-name">
+            <p>{{ team_name }}</p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 padding-set-0">
+            <a class="glyphicon glyphicon-plus" id="add-btn" href="games/add-game"></a>
+        </div>
+    </div>
+
+    {% if not team_games %}
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p class="info-header"> {% trans "You don't have any games yet." %}</p>
+    </div>
+    {% else %}
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 list-scrollable">
+        {% for game in team_games %}
+        <div id="info" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 ">
+
+                {% if game.image %}
+                <img id="avatar" src="{{ game.image.url }}">
+                {% else %}
+                <img id="avatar" src="{% static 'icons/padicon.svg' %}">
+                {% endif %}
+                <a id="name" href="games/details/{{game.id}}">{{ game.name }}</a>
+
+            </div>
+
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 padding-set-0">
+
+                <a class="glyphicon glyphicon-trash" id="trash-btn" href="games/remove-game/{{game.id}}"></a>
+            </div>
+        </div>
+
+
+        {% endfor %}
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">
+        {% if team_games.has_previous %}
+        <a class="prev-text" href="?page={{ team_games.previous_page_number }}">{% trans 'Previous' %}</a>
+        {% endif %}
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 remove-padding">
+
+        <a class="page-text">{% trans 'Page' %} {{ team_games.number }}
+            {% trans 'of' %} {{ team_games.paginator.num_pages }}.</a>
+
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">
+        {% if team_games.has_next %}
+        <a class="next-text" href="?page={{ team_games.next_page_number }}">{% trans 'Next' %}</a>
+        {% endif %}
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+    {% endif %}
+</div>
+
+{% endblock %}

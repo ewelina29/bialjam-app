@@ -1,0 +1,123 @@
+body{
+    font-family: siteFont;
+}
+button:focus, input:focus, select:focus{
+    outline: none;
+}
+option{
+    font-size: 1.2vw;
+}
+p{
+    margin: 0px;
+}
+option{
+    background-color: #D3D2D2;
+}
+input{
+    background-color: #D3D2D2;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    padding-left: 5px;
+}
+
+input[type=file] {
+    width: 100%;
+    display: block;
+    font-size: 1.2vw;
+
+
+}
+select{
+    background-color: #D3D2D2;
+    width: 100%;
+
+}
+option{
+
+    padding-left: 5px;
+
+}
+a{
+    color: #000000;
+}
+a:hover{
+    color: #000000;
+}
+.tab-button{
+    font-family: siteFont;
+}
+#inactiveTab:hover{
+    background-color: #bbbbbb;
+
+}
+#inactiveTab{
+    background-color: #7B7B7B;
+}
+
+#activeTab{
+    background-color: #b1b1b1;
+}
+.title{
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin: 0!important;
+
+}
+.tab-container{
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0!important;
+    height: 73vh;
+
+}
+#team_container{
+    text-align: center;
+    background-color: #7b7979;
+    padding:0;
+    height: 100%;
+}
+#teamdiv{
+    padding: 0!important;
+}
+.send_button{
+    padding: 0.5vw 0vw;
+    width: 100%;
+    background-color: #FCEE82;
+    border: 0px;
+    font-size: 1.2vw;
+}
+
+.messages {
+    font-family: siteFont;
+    background-color: #FCEE82;
+    padding: 1vw;
+    border-radius: 5px;
+    font-size: 2vw;
+    margin-top: 15px;
+}
+#id_teams{
+    /*height: 50vh;*/
+}
+textarea{
+    width: 100%;
+    background-color: #cccccc;
+    overflow-y: scroll;
+    resize: none;
+    font-size: 1vw;
+}
+select{
+    height: 4vw;
+    overflow-y: scroll;
+}
+.title_text{
+    font-size: 2vw;
+    margin: 0.5vw;
+}
+.textlabel{
+    font-size: 1vw;
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "fields": {
+      "name": "Białostocki Konkurs Tworzenia Gier Komputerowych BialJam",
+      "address": "Wydział Informatyki Politechniki Białostockiej, ul. Wiejska 45A",
+      "phone_number": "123-123-123",
+      "description": "Impreza ma na celu przybliżenie studentom i uczniom szkół średnich procesu tworzenia gier komputerowych oraz promowania gier, jako formy nie tylko rozrywki, ale także dzieła sztuki, formy ekspresji i nauki. Wydarzenie dzieli się na dwie części: prelekcje znanych osobistości ze świata polskiego game devu oraz 48-godzinny game jam, będący nie tylko możliwością wygrania ciekawych nagród, ale także sprawdzenia swoich umiejętności i uzyskania opinii na temat swojej pracy od innych twórców.",
+      "email": "bialjam.kontakt@gmail.com",
+      "contest_date": "2018-06-08"
+    },
+    "model": "information.information",
+    "pk": 0
+  }
+]
+
+
+
+
+
+
+

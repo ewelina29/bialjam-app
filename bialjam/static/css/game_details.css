@@ -1,0 +1,92 @@
+.messages {
+    font-family: siteFont;
+    background-color: #FCEE82;
+    padding: 1vw;
+    border-radius: 5px;
+    font-size: 2vw;
+    margin-top: 15px;
+
+}
+.tab-button {
+    font-family: siteFont;
+}
+
+.tab-button:hover {
+    background-color: #bbbbbb;
+
+}
+
+p {
+    margin: 0px;
+}
+
+option {
+    background-color: #D3D2D2;
+}
+
+a {
+    color: #000000;
+}
+
+a:hover {
+    color: #000000;
+}
+#activeTab {
+    background-color: #b1b1b1;
+}
+
+.title {
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin: 0 !important;
+
+}
+
+
+.remove-padding {
+    padding-right: 0;
+    padding-left: 0;
+}
+.tab-container {
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0 !important;
+    height: 73vh;
+
+}
+
+.tabs {
+    background-color: #7B7979;
+}
+
+.team-header {
+    width: 100%;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    font-size: 2.0vw;
+    text-align: center;
+    font-family: siteFont;
+    margin-top: 2.5vw;
+}
+.description-game{
+    width: 100%;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    font-size: 1.5vw;
+    font-family: siteFont;
+}
+.game-url{
+    width: 100%;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    font-size: 1.5vw;
+    font-family: siteFont;
+}
+#img-def {
+    width: 100%;
+    height: auto;
+    max-height: 8vw;
+    padding-top: 1vw;
+}

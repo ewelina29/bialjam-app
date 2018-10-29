@@ -1,0 +1,95 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/details.css' %}">
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="maincontent">
+
+    {% if messages %}
+    {% for message in messages %}
+    <div id="infodiv">
+
+        <a href="/home/"> {{ message | safe }} ✖</a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+    </div>
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+
+        <div class="contentdiv">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 imagediv">
+                {% if user.image %}
+                <img style="width: 200px" src={{ user.image.url }}>
+                {% else %}
+                <img style="width: 200px" src="{% static 'icons/usericon.svg' %}">
+                {% endif %}
+            </div>
+
+
+        </div>
+
+        <div class="contentdiv">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                <label>{% trans 'Name' %}:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                <p>{{ user.first_name }}</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div>
+
+        <div class="contentdiv">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                <label>{% trans 'Surname' %}:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                <p>{{ user.last_name }}</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div>
+        <div class="contentdiv">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                <label>{% trans 'Location' %}:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                <p>{{ user.location }}</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div>
+        <div class="contentdiv">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                <label>{% trans 'Team' %}:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                <p>{{ user.team }}</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div>
+        <div class="contentdiv">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                <label>{% trans 'Bio' %}:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                <p>{{ user.bio }}</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

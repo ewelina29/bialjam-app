@@ -1,0 +1,80 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/team_details.css' %}">
+
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 team-container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundset"  >
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            {% if team_name %}
+            <div class="team-name">
+                <div>{{ team_name }}</div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {% if team_logo %}
+            <div id="frame">
+                <img id="team-logo" src={{ team_logo.url }}/>
+            </div>
+            {% else %}
+            <img id="team-img" src="{% static 'icons/teams.svg' %}">
+
+            {% endif %}
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundset" >
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 " >
+            <p class="p-center" >{% trans "About us "%}</p>
+            {% if team_info %}
+            <div class="team-info">
+                <span>{{ team_info }}</span>
+                <p></p>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+    </div>
+
+    <p class="p-center backgroundset">{% trans "Team members "%}</p>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundset" id="team-members">
+
+        {% for member in team_members %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-set-0">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 padding-set-10">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    {% if user.image %}
+                    <img style="width: 3vw" src={{ user.image.url }}>
+                    {% else %}
+                    <img style="width: 3vw" src="{% static 'icons/usericon.svg' %}">
+                    {% endif %}
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="text-align: left">
+                    <p> {{ member.first_name }}
+                        {{ member.last_name }}</p>
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+</div>
+{% else %}
+<div class="messages ">
+    <a href="/" class="close">✖</a>
+    {% trans "The requested team doesn't exist." %}
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/post-list.css' %}">
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-set-0" id="content">
+    <p class="header-news">{% trans 'News' %}</p>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        {% for post in posts %}
+        <a href="/post/details/{{ post.id}}">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-set-10" id="single-post">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    {% if post.image %}
+                    <img class="img-post" src={{ post.image.url }}>
+                    {% else %}
+                    <img class="img-post" src="{% static 'icons/forumicon.svg' %}">
+                    {% endif %}
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 ">
+                    <p class="post-title">{{post.title}}</p>
+                    <p class="post-content">{{post.content}}</p>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                    <p></p>
+                    <p class="post-date">{{post.created_at}}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

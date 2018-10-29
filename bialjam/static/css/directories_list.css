@@ -1,0 +1,91 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+
+.button-possiton {
+    display: flex;
+    /*padding: 5vw 3vw 1.5vw 3vw;*/
+    /*padding: 2.5vw 2vw 1.5vw 2vw;*/
+    padding:1.5vw 2vw 1vw 2vw;
+
+}
+
+.home-button {
+    display: block;
+    background-color: #ABE0F8;
+    width: 100%;
+}
+
+.home-button:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+    opacity: .5;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.button-img {
+    padding: 1.7vw 2vw 0vw 2vw;
+}
+
+.button-text {
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    text-align: center;
+    color: #000000;
+}
+
+.page-text {
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    text-align: center;
+    color: #ABE0F8;
+    width: 100%;
+    display: block;
+}
+
+.container-gallery {
+    display: inline-block;
+    min-height: 70vh;
+    padding: 1.5vw 0 0 0;
+}
+
+.remove-padding {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.next-text {
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #ABE0F8;
+    width: 100%;
+    display: block;
+}
+
+.prev-text {
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #ABE0F8;
+    width: 100%;
+}
+
+.messages {
+    font-family: siteFont;
+    background-color: #FCEE82;
+    padding: 1vw;
+    border-radius: 5px;
+    font-size: 2vw;
+
+}

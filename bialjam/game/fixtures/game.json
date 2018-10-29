@@ -1,0 +1,68 @@
+[
+  {
+    "fields": {
+      "name": "Super game",
+      "year": 2018,
+      "team_id": 0,
+      "url": "http://www.gamesgames.com",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat "
+    },
+    "model": "game.game",
+    "pk": 0
+  },
+  {
+    "fields": {
+      "name": "We are the heroes",
+      "year": 2018,
+      "team_id": 1,
+      "url": "http://www.gamesgames.com",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat "
+    },
+    "model": "game.game",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "name": "Go go go",
+      "year": 2018,
+      "team_id": 2,
+      "url": "http://www.gamesgames.com",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat "
+    },
+    "model": "game.game",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "name": "Masters",
+      "year": 2018,
+      "team_id": 3,
+      "url": "http://www.gamesgames.com",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat "
+    },
+    "model": "game.game",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "name": "Example game",
+      "year": 2018,
+      "team_id": 4,
+      "url": "http://www.gamesgames.com",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat "
+    },
+    "model": "game.game",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "name": "Apocalypse",
+      "year": 2018,
+      "team_id": 5,
+      "url": "http://www.gamesgames.com",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat "
+    },
+    "model": "game.game",
+    "pk": 5
+  }
+]

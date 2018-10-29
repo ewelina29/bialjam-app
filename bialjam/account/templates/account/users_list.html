@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/account.css' %}">
+
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-set-0" id="account-container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-set-0">
+        <p class="users-text">Uczestnicy</p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 list-scrollable">
+        {% for user in users_list %}
+        <a href="/team/details/{{ team.id}}" id="name">
+            <div id="info">
+                {% if user.image %}
+                <img class="img-team" src={{ user.image.url }}>
+                {% else %}
+                <img class="img-team" src="{% static 'icons/usericon.svg' %}">
+                {% endif %}
+                {{ user.first_name }}
+                {{ user.last_name }}
+            </div>
+        </a>
+
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

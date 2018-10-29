@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>views.py</title>
+  <link rel="stylesheet" href="../pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>views.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">login</span><span class="p">,</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">update_session_auth_hash</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">PasswordChangeForm</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">transaction</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">bialjam.core</span> <span class="kn">import</span> <span class="n">CustomHttpResponse</span>
+
+<span class="kn">from</span> <span class="nn">account.models</span> <span class="kn">import</span> <span class="n">Profile</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">SignUpForm</span><span class="p">,</span> <span class="n">UserForm</span><span class="p">,</span> <span class="n">ProfileForm</span>
+<span class="kn">from</span> <span class="nn">information.models</span> <span class="kn">import</span> <span class="n">Information</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <h3><span id="views-for-account-app" href="views-for-account-app"> Views for Account app </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>Account app includes the following views:</p>
+<ol>
+<li><strong>Signup</strong> - Signup to create account (jump to section in  <a href="views.html#signup">views.py</a> )</li>
+<li><strong>Update profile</strong> - Update profile( jump to section in  <a href="views.html#update_profile">views.py</a> )</li>
+<li><strong>Change password</strong> - Changing password(jump to section in  <a href="views.html#change_password">views.py</a>)</li>
+<li><strong>Remove user account</strong> - Removing user's account(jump to section in  <a href="views.html#remove_user">views.py</a>)</li>
+<li><strong>List of all users</strong> - Show list of all users(jump to section in  <a href="views.html#users_list">views.py</a>)</li>
+<li><strong>User details</strong> - Show user details(jump to section in  <a href="views.html#users_details">views.py</a>)</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <h3><span id="signup" href="signup"> signup </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">signup</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>Signup</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">SignUpForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">refresh_from_db</span><span class="p">()</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">birth_date</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;birth_date&#39;</span><span class="p">)</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">raw_password</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password1&#39;</span><span class="p">)</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">raw_password</span><span class="p">)</span>
+            <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your account has been created.&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">SignUpForm</span><span class="p">()</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;account/signup.html&#39;</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <h3><span id="update_profile" href="update_profile"> update_profile </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="nd">@transaction.atomic</span>
+<span class="k">def</span> <span class="nf">update_profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Update profile</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">profile</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span>
+    <span class="n">user_avatar</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">image</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_avatar&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;avatar_image&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">:</span>
+        <span class="n">profile</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;avatar_image&#39;</span><span class="p">]</span>
+        <span class="n">profile</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">user_avatar</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">image</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_fields&#39;</span><span class="p">):</span>
+        <span class="n">user_form</span> <span class="o">=</span> <span class="n">UserForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">profile_form</span> <span class="o">=</span> <span class="n">ProfileForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">profile</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">user_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="ow">and</span> <span class="n">profile_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">profile_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Please correct the error below.&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">user_form</span> <span class="o">=</span> <span class="n">UserForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">profile_form</span> <span class="o">=</span> <span class="n">ProfileForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;account/details.html&#39;</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;user_form&#39;</span><span class="p">:</span> <span class="n">user_form</span><span class="p">,</span>
+        <span class="s1">&#39;profile_form&#39;</span><span class="p">:</span> <span class="n">profile_form</span><span class="p">,</span>
+        <span class="s1">&#39;user_avatar&#39;</span><span class="p">:</span> <span class="n">user_avatar</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <h3><span id="change_password" href="change_password"> change_password </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">change_password</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <p>Changing password</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">update_session_auth_hash</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/accounts/details&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;account/change-password.html&#39;</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <h3><span id="remove_user" href="remove_user"> remove_user </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">remove_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>User remove his account</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+
+        <span class="n">rem</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">rem</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">rem</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">rem</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/home&#39;</span><span class="p">)</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;account/remove-user.html&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <h3><span id="users_list" href="users_list"> users_list </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">users_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>Show list of all users</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">all_users</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">team</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">profile</span><span class="o">.</span><span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">location</span>
+
+        <span class="n">user_info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span>
+            <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">last_name</span><span class="p">,</span>
+            <span class="s1">&#39;team&#39;</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
+            <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">profile</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+            <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">location</span>
+        <span class="p">}</span>
+
+        <span class="n">all_users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user_info</span><span class="p">)</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;account/users_list.html&#39;</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;users_list&#39;</span><span class="p">:</span> <span class="n">all_users</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <h3><span id="users_details" href="users_details"> users_details </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">users_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>Show user details</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">User</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Requested user does not exist!&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;account/user_details.html&#39;</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">team</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">bio</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">if</span> <span class="n">profile</span><span class="o">.</span><span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">location</span>
+    <span class="k">if</span> <span class="n">profile</span><span class="o">.</span><span class="n">bio</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">bio</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">bio</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">last_name</span><span class="p">,</span>
+        <span class="s1">&#39;team&#39;</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
+        <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">profile</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+        <span class="s1">&#39;location&#39;</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span>
+        <span class="s1">&#39;bio&#39;</span><span class="p">:</span> <span class="n">bio</span>
+    <span class="p">}</span>
+
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;account/user_details.html&#39;</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

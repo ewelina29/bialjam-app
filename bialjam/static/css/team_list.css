@@ -1,0 +1,140 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+a{
+    color: #000000;
+}
+a:hover{
+    color: #000000;
+}
+.list-container{
+    background-color: #7B7979;
+    font-family: siteFont;
+    height: 100%;
+    padding: 0!important;
+}
+#info{
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    /*border-bottom: solid #202020 1px;*/
+    width: 100%;
+}
+#info:hover{
+    background-color: #bbbbbb;
+    color: #F4E009;
+}
+#avatar{
+    max-height: 4vw;
+    max-width: 7vw;
+    margin-left: 3vw;
+    margin-right: 2vw;
+}
+#name{
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+#name:hover{
+    color: #FCEE82;
+}
+.list_scrollable a{
+    text-decoration: none;
+}
+
+.next-text {
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+	color: #333;
+    width: 100%;
+    display: block;
+}
+.next-text:hover{
+    color: #202020;
+}
+.prev-text {
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+	color: #333;
+    width: 100%;
+}
+.prev-text:hover{
+        color: #202020;
+
+}
+.page-text {
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    text-align: center;
+	color: #333;
+    width: 100%;
+    display: block;
+}
+.page-text:hover{
+        color: #202020;
+
+}
+.remove-padding{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+
+.tab-button{
+    font-family: siteFont;
+}
+.tab-button:hover{
+    background-color: #bbbbbb;
+
+}
+.inactiveTab{
+    background-color: #7B7B7B;
+}
+
+#inactiveTab:hover{
+    background-color: #BBBBBB;
+}
+
+#activeTab {
+    background-color: #b1b1b1;
+}
+
+
+.title{
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin: 0!important;
+
+}
+.tab-container{
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0!important;
+    min-height: 70vh;
+
+}
+.list-scrollable{
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0!important;
+    min-height: 67vh;
+    overflow-y: scroll;
+
+}
+#name+ #name #info{
+    border-top: 1px solid black;
+}

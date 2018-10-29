@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>views.py</title>
+  <link rel="stylesheet" href="../pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>views.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.core.paginator</span> <span class="kn">import</span> <span class="n">Paginator</span><span class="p">,</span> <span class="n">EmptyPage</span><span class="p">,</span> <span class="n">PageNotAnInteger</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ugettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">bialjam.core</span> <span class="kn">import</span> <span class="n">CustomHttpResponse</span>
+<span class="kn">from</span> <span class="nn">information.models</span> <span class="kn">import</span> <span class="n">Information</span>
+<span class="kn">from</span> <span class="nn">team.models</span> <span class="kn">import</span> <span class="n">Team</span><span class="p">,</span> <span class="n">RequestUserTeam</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">TeamForm</span><span class="p">,</span> <span class="n">UserRequestForm</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <h3><span id="views-for-the-team-app" href="views-for-the-team-app"> Views for the Team app </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>Team app includes the following views:</p>
+<ol>
+<li><strong>Create new team</strong> - Create new team  (jump to section in  <a href="views.html#new_team">views.py</a> )</li>
+<li><strong>Team details</strong> - Show chosen team details  (jump to section in  <a href="views.html#team_details">views.py</a> )</li>
+<li><strong>User's team details</strong> - Show and edit user's team details.  (jump to section in  <a href="views.html#my_team">views.py</a> )</li>
+<li><strong>Join to team</strong> - Send message for chosen team with request to join  (jump to section in  <a href="views.html#join_team">views.py</a> )</li>
+<li><strong>User request messages</strong> - Return all user's requests to join user team with options  (jump to section in  <a href="views.html#request_user">views.py</a> )</li>
+<li><strong>Team list</strong> - Show sorted list of all teams  (jump to section in  <a href="views.html#team_list">views.py</a> )</li>
+</ol>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <h3><span id="new_team" href="new_team"> new_team </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>Create new team, it's possible to create one team with 4 members</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;team/new.html&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">TeamForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">team</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
+            <span class="k">if</span> <span class="s1">&#39;logo_image&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">:</span>
+                <span class="n">team</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;logo_image&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;team_info&#39;</span><span class="p">):</span>
+                <span class="n">team</span><span class="o">.</span><span class="n">information</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;team_info&#39;</span><span class="p">)</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>assign team to all members</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">team</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;member2&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">member2</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;member2&#39;</span><span class="p">])</span>
+                <span class="n">member2</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">team</span>
+                <span class="n">member2</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;member3&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">member3</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;member3&#39;</span><span class="p">])</span>
+                <span class="n">member3</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">team</span>
+                <span class="n">member3</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;member4&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">member4</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;member4&#39;</span><span class="p">])</span>
+                <span class="n">member4</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">team</span>
+                <span class="n">member4</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your team has been created.&#39;</span><span class="p">))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/team/my-team&#39;</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">TeamForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <h3><span id="team_details" href="team_details"> team_details </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">team_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Show chosen team details</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;team/details.html&#39;</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="n">Team</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">team_members</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">profile__team</span><span class="o">=</span><span class="n">team</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;team_name&#39;</span><span class="p">:</span> <span class="n">team</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;team_info&#39;</span><span class="p">:</span> <span class="n">team</span><span class="o">.</span><span class="n">information</span><span class="p">,</span>
+            <span class="s1">&#39;team_logo&#39;</span><span class="p">:</span> <span class="n">team</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
+            <span class="s1">&#39;team_members&#39;</span><span class="p">:</span> <span class="n">team_members</span><span class="p">,</span>
+            <span class="s1">&#39;days&#39;</span><span class="p">:</span> <span class="n">Information</span><span class="o">.</span><span class="n">getDaysToContest</span><span class="p">()</span>
+        <span class="p">}</span>
+
+    <span class="k">except</span> <span class="n">Team</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-8'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-8'>#</a>
+      </div>
+      <h3><span id="my_team" href="my_team"> my_team </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">my_team</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-9'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-9'>#</a>
+      </div>
+      <p>Show and edit user's team details with ability to leave the team</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;team/my_team.html&#39;</span><span class="p">)</span>
+    <span class="n">team</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span>
+    <span class="n">has_left</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">if</span> <span class="n">team</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">team_members</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">profile__team</span><span class="o">=</span><span class="n">team</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;team_name&#39;</span><span class="p">:</span> <span class="n">team</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;team_members&#39;</span><span class="p">:</span> <span class="n">team_members</span><span class="p">,</span>
+            <span class="s1">&#39;team_logo&#39;</span><span class="p">:</span> <span class="n">team</span><span class="o">.</span><span class="n">logo</span><span class="p">,</span>
+            <span class="s1">&#39;team_info&#39;</span><span class="p">:</span> <span class="n">team</span><span class="o">.</span><span class="n">information</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save&#39;</span><span class="p">):</span>
+            <span class="n">new_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;new_name&#39;</span><span class="p">)</span>
+            <span class="n">new_info</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;new_info&#39;</span><span class="p">)</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;logo_image&#39;</span><span class="p">]</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">information</span> <span class="o">=</span> <span class="n">new_info</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;team_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;team_info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">information</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;team_logo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">logo</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_name&#39;</span><span class="p">):</span>
+            <span class="n">new_name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;new_name&#39;</span><span class="p">)</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">new_name</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;team_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_info&#39;</span><span class="p">):</span>
+            <span class="n">new_info</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;new_info&#39;</span><span class="p">)</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">information</span> <span class="o">=</span> <span class="n">new_info</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;team_info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">information</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;save_logo&#39;</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-10'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>team.logo = request.POST.get('logo_image')</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">team</span><span class="o">.</span><span class="n">logo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1">&#39;logo_image&#39;</span><span class="p">]</span>
+            <span class="n">team</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">context</span><span class="p">[</span><span class="s1">&#39;team_logo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">logo</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;leave_team&#39;</span><span class="p">):</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/team/new&#39;</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
+      </div>
+      <h3><span id="join_team" href="join_team"> join_team </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">join_team</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-12'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-12'>#</a>
+      </div>
+      <p>Send message for chosen team with request to join</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;team/join_team.html&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">UserRequestForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;teams&#39;</span><span class="p">]:</span>
+                <span class="n">request_user_team_obj</span> <span class="o">=</span> <span class="n">RequestUserTeam</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="n">team</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">))</span>
+                <span class="n">request_user_team_obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your requests have been sent.&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span>
+        <span class="k">if</span> <span class="n">team</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">UserRequestForm</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>  <span class="c1"># User which has a team can not see this template</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-13'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-13'>#</a>
+      </div>
+      <h3><span id="request_user" href="request_user"> request_user </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">request_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>Return all user's requests to join user team with ability to add or remove request</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;team/request_user.html&#39;</span><span class="p">)</span>
+    <span class="n">team</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span>
+
+    <span class="k">if</span> <span class="n">team</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">team_name</span> <span class="o">=</span> <span class="n">team</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">request_users</span> <span class="o">=</span> <span class="n">RequestUserTeam</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="n">team</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;team_name&#39;</span><span class="p">:</span> <span class="n">team_name</span><span class="p">,</span>
+            <span class="s1">&#39;request_users&#39;</span><span class="p">:</span> <span class="n">request_users</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <p>Check quantity of users in team</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">team_members</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">profile__team</span><span class="o">=</span><span class="n">team</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">team_members</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">context</span><span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;You have full team&#39;</span>
+                <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-16'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-16'>#</a>
+      </div>
+      <p>Add user</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>            <span class="n">user_username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">)</span>
+            <span class="n">new_member</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user_username</span><span class="p">)</span>
+            <span class="n">new_member</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">team</span>
+            <span class="n">new_member</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">Team</span><span class="o">.</span><span class="n">request_users</span><span class="o">.</span><span class="n">through</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">new_member</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;User has been added.&#39;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;remove&quot;</span><span class="p">):</span>
+            <span class="n">user_username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;remove&quot;</span><span class="p">)</span>
+            <span class="n">member</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">user_username</span><span class="p">)</span>
+            <span class="n">Team</span><span class="o">.</span><span class="n">request_users</span><span class="o">.</span><span class="n">through</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="n">member</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-17'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-17'>#</a>
+      </div>
+      <h3><span id="team_list" href="team_list"> team_list </span></h3>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span class="k">def</span> <span class="nf">team_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-18'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-18'>#</a>
+      </div>
+      <p>Show sorted list of all teams</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;team/team_list.html&#39;</span><span class="p">)</span>
+
+    <span class="n">teams_list</span> <span class="o">=</span> <span class="n">Team</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">team</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">profile</span><span class="o">.</span><span class="n">team</span>
+
+    <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">teams_list</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+    <span class="n">page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">teams</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">PageNotAnInteger</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-19'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-19'>#</a>
+      </div>
+      <p>If page is not an integer, deliver first page.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">teams</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">EmptyPage</span><span class="p">:</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-20'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-20'>#</a>
+      </div>
+      <p>If page is out of range (e.g. 9999), deliver last page of results.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="n">teams</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;teams&#39;</span><span class="p">:</span> <span class="n">teams</span><span class="p">,</span>
+        <span class="s1">&#39;team&#39;</span><span class="p">:</span> <span class="n">team</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">CustomHttpResponse</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

@@ -1,0 +1,66 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/join_team.css' %}">
+    {% if messages %}
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">
+                        {{ message }}
+                        <a href="/" class="close">✖</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="team_container">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="teamdiv">
+                <a href="/team/teams">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tab-button" id="inactiveTab">
+                        <p class="title">{% trans 'Team List' %}</p>
+                    </div>
+                </a>
+                <a href="/team/new">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tab-button" id="inactiveTab">
+                        <p class="title">{% trans 'New Team' %}</p>
+                    </div>
+                </a>
+                <a href="/team/join-team">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 tab-button" id="activeTab">
+                        <p class="title">{% trans 'Join Team ' %}</p>
+                    </div>
+                </a>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-container">
+                <div class="title_text">
+                    {% trans 'Select the team you want to join' %}
+                </div>
+                    <br>
+                    <form method="POST" class="post-form">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding-bottom: 1vw;">
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">
+                                    <p class="textlabel">{{ field.label }}</p>
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 inputdiv">
+                                    {{ field }}
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+                            </div>
+                        {% endfor %}
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+                            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 remove-padding">
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 remove-padding">
+                                <button type="submit" formnovalidate class="send_button">Send request</button>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

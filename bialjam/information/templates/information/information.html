@@ -1,0 +1,58 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/information.css' %}">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="content">
+        {% if messages %}
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="{{ message.tags }}" >
+                            {{ message }}
+                            <a href="/" class="close">✖</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+
+        {% else %}
+            <div id="infodiv">
+
+                <p id="name"><b>{{ info.name }}</b></p>
+                <p class="description" id="description">
+                    <span class="info-field">
+                        {{ info.description }}
+                    </span>
+                </p>
+                <p class="contact-top" id="address">
+                    <b>{% trans 'Address:' %}</b>
+                    <span class="info-field">
+                        {{ info.address }}
+                    </span>
+                </p>
+                <p class="contact-mid" id="phone-number">
+                    <b>{% trans 'Telephone:' %}</b>
+                    <span class="info-field">
+                        {{ info.phone_number }}
+                    </span>
+                </p>
+                <p class="contact-bot" id="email">
+                    <b>{% trans 'Email:' %}</b>
+                    <span class="info-field">
+                        {{ info.email }}
+                    </span>
+                </p>
+            </div>
+        {% endif %}
+
+
+    </div>
+
+
+
+
+{% endblock %}

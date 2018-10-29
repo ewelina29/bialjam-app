@@ -1,0 +1,40 @@
+@font-face {
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+    font-family: siteFont;
+}
+.list-container{
+    background-color: #7B7979;
+    font-family: siteFont;
+    height: 100%;
+}
+.padding-set-0{
+    padding: 0!important;
+}
+#vip-name{
+    text-align: center;
+    font-size: 2.5vw;
+}
+#vip-bio{
+    font-size: 1vw;
+}
+#about{
+    font-size:  1.5vw;
+}
+#title{
+    font-size:  1.5vw;
+}
+#pres-title{
+    font-size: 1vw;
+}
+#date{
+    font-size:  1.5vw;
+}
+#pres-date{
+    font-size: 1vw;
+}
+.content-div{
+    height: 100%;
+    background-color: #BBBBBB;
+    padding: 0!important;
+
+}

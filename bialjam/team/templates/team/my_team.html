@@ -1,0 +1,143 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static '/css/team.css' %}">
+
+{% if messages %}
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <div class="messages">
+        {% for message in messages %}
+        <div class="{{ message.tags }}">
+            {{ message }}
+            <a href="/" class="close">✖</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+
+{% if team_name %}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding tabs">
+    <a href="/team/teams">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="inactiveTab">
+            <p class="title">{% trans 'Team List' %}</p>
+        </div>
+    </a>
+    <a href="/team/my-team">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="activeTab">
+            <p class="title">{% trans 'Details' %}</p>
+        </div>
+    </a>
+    <a href="/games/team-games">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="inactiveTab">
+            <p class="title">{% trans 'Games' %}</p>
+        </div>
+    </a>
+    <a href="/team/request-user">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="inactiveTab">
+            <p class="title">{% trans 'Messages' %}</p>
+        </div>
+    </a>
+</div>
+<div id="first" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-container remove-padding">
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="teamdetails">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 top-bot-padding-5">
+                {% if team_logo %}
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <img class="team-img" src={{ team_logo.url }}>
+                    <input type="file" id="files" name="logo_image" value="null">
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
+                {% else %}
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 team-img">
+                    <p style="padding-top: 2vw;">{% trans "Your team doesn't have any logo yet. Add it now!" %}</p>
+                    <input type="file" id="files" name="logo_image" value="null">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 top-bot-padding-5">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <p class="p-center">{% trans "Team name "%}</p>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    <input class="intput_area" type="text" name="new_name" value={{ team_name }}>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 top-bot-padding-5">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <p class="p-center">{% trans "Team bio "%}</p>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    {% if team_info %}
+                    <textarea class="intput_area_info"
+                              name="new_info">{{ team_info }}</textarea>
+                    {% else %}
+                    <textarea class="intput_area_info" cols="50"
+                              name="new_info" id="team-description"> {% trans "Your team haven't provided any information. Add it now!" %}</textarea>
+                    {% endif %}
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " id="team_members">
+                <p class="p-center">{% trans "Team members "%}</p>
+
+                {% for member in team_members %}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 padding-set-10" style="border-bottom: 1px solid black">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="user_image">
+                            {% if user.image %}
+                            <img style="width: 3vw" src={{ user.image.url }}>
+                            {% else %}
+                            <img style="width: 3vw" src="{% static 'icons/usericon.svg' %}">
+                            {% endif %}
+                        </div>
+                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="users_info"
+                             style="text-align: left">
+                            <p>{{ member.first_name }}
+                                {{ member.last_name }}</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 "></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                    <input type="submit" name="leave_team" value={% trans 'Leave' %}>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <input type="submit" name="save" value={% trans 'Save' %}>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+{% else %}
+
+{% endif %}
+
+{% endif %}
+{% endblock %}

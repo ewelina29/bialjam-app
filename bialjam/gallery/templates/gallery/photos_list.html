@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{%  load i18n %}
+
+
+{% block content %}
+<script src="{% static 'scripts/imgShow.js'%}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static '/css/photo_list.css'%}">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-content">
+    {% for photo in photos %}
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-set">
+        <div class="button-possiton">
+            <a class="home-button" >
+                <img class="button-img" src="{{ photo.image.url}}">
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">
+        {% if photos.has_previous %}
+            <a class="prev-text" href="?page={{ photos.previous_page_number }}">{% trans 'Previous' %}</a>
+        {% endif %}
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 remove-padding">
+        <span class="step-links">
+            <span class="page-text">
+                {% trans 'Page' %} {{ photos.number }} {% trans 'of' %} {{ photos.paginator.num_pages }}.
+            </span>
+        </span>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">
+        {% if photos.has_next %}
+            <a class="next-text" href="?page={{ photos.next_page_number }}">{% trans 'Next' %}</a>
+        {% endif %}
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+</div>
+{% endblock %}

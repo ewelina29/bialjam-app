@@ -1,0 +1,117 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/requests.css' %}">
+
+
+{% if messages %}
+<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+    <div class="messages">
+        {% for message in messages %}
+        <div class="{{ message.tags }}">
+            {{ message }}
+            <a href="/team/request-user" class="close">✖</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+{% else %}
+
+<div class="containerr" id="requests_container"><!-- szczegoly druzyny -->
+            <a href="/team/teams">
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="inactiveTab">
+                <p class="title">{% trans 'Team List' %}</p>
+            </div>
+        </a>
+        <a href="/team/my-team">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="inactiveTab">
+                <p class="title">{% trans 'Details' %}</p>
+            </div>
+        </a>
+        <a href="/games/team-games">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="inactiveTab">
+                <p class="title">{% trans 'Games' %}</p>
+            </div>
+        </a>
+
+        <a href="/team/request-user">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 tab-button" id="activeTab">
+                <p class="title">{% trans 'Messages' %}</p>
+            </div>
+        </a>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-container">
+        {% if team_name %}
+        <form method="POST">
+            {% csrf_token %}
+            <p id="team_name"> {{ team_name }}</p>
+            {% if not request_users %}
+            <p class="info_header"> {% trans "You don't have any requests yet." %}</p>
+            {% else %}
+            <p class="info_header"
+               style="border-bottom:solid #202020 1px;"> {% trans 'Users who want to join your team' %}
+            </p>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding list_scrollable" >
+                {% for request_user in request_users %}
+                <div id="info">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        {% if request_user.logo %}
+                        <img id="avatar" src="{{ request_user.logo.url }}">
+                        {% else %}
+                        <img id="avatar" src="{% static 'icons/usericon.svg' %}">
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <span id="name">{{ request_user.user.first_name }} {{ request_user.user.last_name }}</span>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+                        <span id="message">{{ request_user.message }}</span>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
+                        <button class="action-button" type="submit" name="add" value={{ request_user.user.username }}>
+                                 <a class="action-button glyphicon glyphicon-ok"></a>
+                        </button>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 ">
+                        <button class="action-button" type="submit" name="remove" value={{ request_user.user.username }}>
+                            <a class="action-button glyphicon glyphicon-remove"></a>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+{#            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">#}
+{#                {% if teams.has_previous %}#}
+{#                <a class="prevtext" href="?page={{ teams.previous_page_number }}">Previous</a>#}
+{#                {% endif %}#}
+{#            </div>#}
+{#            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 remove-padding">#}
+{#                <a class="pagetext">{% trans 'Page' %} {{ teams.number }}#}
+{#                    {% trans 'of' %} {{ teams.paginator.num_pages }}.</a>#}
+{#            </div>#}
+{#            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding">#}
+{#                {% if teams.has_next %}#}
+{#                <a class="nexttext" href="?page={{ teams.next_page_number }}">Next</a>#}
+{#                {% endif %}#}
+{#            </div>#}
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+
+
+            {% endif %}
+
+        </form>
+        {% else %}
+        <p>{% trans "You don't belong to any team yet." %}</p>
+
+        {% endif %}
+
+        {% if info %}
+        <p>{{ info }}</p>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

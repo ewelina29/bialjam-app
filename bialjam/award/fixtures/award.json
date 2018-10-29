@@ -1,0 +1,22 @@
+[{
+  "fields": {
+    "name": "First award"
+  },
+  "model": "award.award",
+  "pk": 0
+},
+{
+  "fields": {
+    "name": "Second award"
+  },
+  "model": "award.award",
+  "pk": 1
+},
+  {
+  "fields": {
+    "name": "Third award"
+  },
+  "model": "award.award",
+  "pk": 2
+}
+]

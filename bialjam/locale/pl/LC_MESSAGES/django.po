@@ -1,0 +1,483 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-03 18:31+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: account/forms.py:29 account/templates/account/user_details.html:60
+msgid "Location"
+msgstr "Miasto"
+
+#: account/forms.py:30 account/templates/account/user_details.html:82
+#: team/templates/team/new.html:75
+msgid "Bio"
+msgstr "Biografia"
+
+#: account/templates/account/change-password.html:25
+#: account/templates/account/details.html:71
+#: account/templates/account/password_reset_confirm.html:27
+msgid "Change password"
+msgstr "Zmień hasło"
+
+#: account/templates/account/details.html:27
+msgid "Save avatar"
+msgstr "Zapisz zdjęcie"
+
+#: account/templates/account/details.html:67
+msgid "Password"
+msgstr "Hasło"
+
+#: account/templates/account/details.html:82
+#: account/templates/account/details.html:86
+msgid "Delete account"
+msgstr "Usuń konto"
+
+#: account/templates/account/details.html:100
+msgid "Save changes"
+msgstr "Zapisz zmiany"
+
+#: account/templates/account/login.html:12
+#: account/templates/account/login.html:36
+#: account/templates/account/password_reset_complete.html:10
+msgid "Log in"
+msgstr "Zaloguj się"
+
+#: account/templates/account/password_reset_complete.html:9
+#, fuzzy
+#| msgid "Your password has been changed. You may go ahead and log in now."
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Twoje hasło zostało zmienione, teraz możesz się ponownie zalogować."
+
+#: account/templates/account/password_reset_confirm.html:35
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Link resetujący hasło jest nieprawidłowy, być może został już wykorzystany. "
+"Spróbuj jeszce raz."
+
+#: account/templates/account/password_reset_done.html:10
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr "Na podany adres email zostały wysłane dalsze instrukcje."
+
+#: account/templates/account/password_reset_done.html:12
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"Jeśli nie otrzymałeś wiadomości, upewnij się, że podałeś poprawny adres "
+"email."
+
+#: account/templates/account/password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: account/templates/account/password_reset_email.html:3
+msgid "Please go to the following page and choose a new password:"
+msgstr "Przejdź na następną stronę i wybierz nowe hasło:"
+
+#: account/templates/account/password_reset_email.html:7
+msgid "Your username, in case you've forgotten:"
+msgstr "Twoja nazwa użytkwownika:"
+
+#: account/templates/account/password_reset_email.html:9
+msgid "Thanks for using our site!"
+msgstr "Dziekujemy!"
+
+#: account/templates/account/password_reset_email.html:11
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "Drużyna %(site_name)s"
+
+#: account/templates/account/password_reset_form.html:13
+msgid "Forgotten your password?"
+msgstr "Zmień hasło"
+
+#: account/templates/account/password_reset_form.html:14
+msgid ""
+"Enter your email address below,  we'll email instructions for setting a new "
+"one."
+msgstr ""
+"Zapomniałeś hasła? Podaj swój adres email, a otrzymasz link resetujący."
+
+#: account/templates/account/password_reset_form.html:18
+msgid "Email address:"
+msgstr "Adres email:"
+
+#: account/templates/account/password_reset_form.html:30
+msgid "Reset my password"
+msgstr "Zresetuj hasło"
+
+#: account/templates/account/remove-user.html:12
+msgid "Do you really want to remove account?"
+msgstr "Czy na pewno chcesz usunąć konto?"
+
+#: account/templates/account/remove-user.html:14
+msgid "Remove"
+msgstr "Usuń"
+
+#: account/templates/account/signup.html:36
+msgid ""
+"Password must be at least 8 characters long and must contain at least one "
+"digit."
+msgstr ""
+"Hasło musi składać się z co najmniej 8 znaków i zawierać przynajmniej jedną "
+"cyfrę."
+
+#: account/templates/account/signup.html:46 templates/template.html:35
+msgid "Sign up"
+msgstr "Załóż konto"
+
+#: account/templates/account/user_details.html:37
+msgid "Name"
+msgstr "Imię"
+
+#: account/templates/account/user_details.html:49
+msgid "Surname"
+msgstr "Nazwisko"
+
+#: account/templates/account/user_details.html:71
+msgid "Team"
+msgstr "Drużyna"
+
+#: account/views.py:48
+msgid "Your account has been created."
+msgstr "Twoje konto zostało stworzone"
+
+#: account/views.py:85
+msgid "Please correct the error below."
+msgstr "Popraw następujące błedy"
+
+#: bialjam/settings.py:121
+msgid "Polish"
+msgstr "Polski"
+
+#: gallery/templates/gallery/directories_list.html:40
+#: gallery/templates/gallery/photos_list.html:25
+#: game/templates/game/team_games.html:74 team/templates/team/team_list.html:72
+msgid "Previous"
+msgstr "Wstecz"
+
+#: gallery/templates/gallery/directories_list.html:47
+#: gallery/templates/gallery/photos_list.html:31
+#: game/templates/game/team_games.html:79 team/templates/team/team_list.html:77
+msgid "Page"
+msgstr "Strona"
+
+#: gallery/templates/gallery/directories_list.html:47
+#: gallery/templates/gallery/photos_list.html:31
+#: game/templates/game/team_games.html:80 team/templates/team/team_list.html:78
+msgid "of"
+msgstr "z"
+
+#: gallery/templates/gallery/directories_list.html:54
+#: gallery/templates/gallery/photos_list.html:37
+#: game/templates/game/team_games.html:85 team/templates/team/team_list.html:83
+msgid "Next"
+msgstr "Dalej"
+
+#: gallery/views.py:33
+msgid "No photos to show"
+msgstr "Brak zdjęć"
+
+#: game/forms.py:7
+msgid "Name of the game"
+msgstr "Nazwa gry"
+
+#: game/forms.py:8
+msgid "Url"
+msgstr "Url"
+
+#: game/templates/game/add_game.html:25 game/templates/game/add_game.html:72
+msgid "Add game"
+msgstr "Dodaj grę"
+
+#: game/templates/game/add_game.html:62
+msgid "Description"
+msgstr "Opis"
+
+#: game/templates/game/game_details.html:26
+msgid "Game List"
+msgstr "Gry"
+
+#: game/templates/game/game_details.html:31
+msgid "Game details"
+msgstr "Szczegóły gry"
+
+#: game/templates/game/games_list.html:12
+#: game/templates/game/remove_game.html:35
+#: game/templates/game/team_games.html:21 home/templates/home/home.html:49
+#: team/templates/team/my_team.html:35 team/templates/team/request_user.html:36
+#: team/templates/team/team_list.html:24
+msgid "Games"
+msgstr "Gry"
+
+#: game/templates/game/games_list.html:20
+msgid "Games are not added."
+msgstr "Nie dodano żadnych gier"
+
+#: game/templates/game/remove_game.html:25
+#: game/templates/game/team_games.html:11 team/templates/team/join_team.html:22
+#: team/templates/team/my_team.html:25 team/templates/team/new.html:26
+#: team/templates/team/request_user.html:26
+#: team/templates/team/team_list.html:14 team/templates/team/team_list.html:38
+msgid "Team List"
+msgstr "Drużyny"
+
+#: game/templates/game/remove_game.html:30
+#: game/templates/game/team_games.html:16 team/templates/team/my_team.html:30
+#: team/templates/team/request_user.html:31
+#: team/templates/team/team_list.html:19
+msgid "Details"
+msgstr "Szczegóły"
+
+#: game/templates/game/remove_game.html:40
+#: game/templates/game/team_games.html:26 team/templates/team/my_team.html:40
+#: team/templates/team/request_user.html:42
+#: team/templates/team/team_list.html:29
+msgid "Messages"
+msgstr "Wiadomości"
+
+#: game/templates/game/remove_game.html:51
+msgid "Are you sure you want to delete"
+msgstr "Czy na pewno chcesz usunąć grę"
+
+#: game/templates/game/team_games.html:45
+msgid "You don't have any games yet."
+msgstr "Ta drużyna nie ma żadnych gier"
+
+#: game/views.py:51
+msgid "Fill all fields"
+msgstr "Wypełnij wszystkie pola"
+
+#: game/views.py:113 game/views.py:140
+msgid "This game does not exist"
+msgstr "Gra o podanym id nie istnieje"
+
+#: game/views.py:119
+msgid "You can't remove this game, it's not belong to your team"
+msgstr "Nie możesz usunąć tej gry, nie należy do Twojej drużyny"
+
+#: home/templates/home/home.html:15
+msgid "Posts"
+msgstr "Posty"
+
+#: home/templates/home/home.html:23
+msgid "Jury/Speakers"
+msgstr "Jury/Prelegenci"
+
+#: home/templates/home/home.html:31
+msgid "About us"
+msgstr "O nas"
+
+#: home/templates/home/home.html:41
+msgid "Gallery"
+msgstr "Galeria"
+
+#: home/templates/home/home.html:57 team/forms.py:58
+msgid "Teams"
+msgstr "Drużyny"
+
+#: information/templates/information/information.html:32
+msgid "Address:"
+msgstr "Adres:"
+
+#: information/templates/information/information.html:38
+msgid "Telephone:"
+msgstr "Telefon:"
+
+#: information/templates/information/information.html:44
+msgid "Email:"
+msgstr "Adres email:"
+
+#: information/views.py:26
+msgid "No information"
+msgstr "Brak informacji"
+
+#: post/templates/post/post_list.html:8
+msgid "News"
+msgstr "Aktualności"
+
+#: post/views.py:29
+msgid "Post does not exist"
+msgstr "Post nie istnieje"
+
+#: post/views.py:45
+#, fuzzy
+#| msgid "No photos to show"
+msgid "No posts"
+msgstr "Brak zdjęć"
+
+#: team/forms.py:16
+msgid "Team name"
+msgstr "Nazwa drużyny"
+
+#: team/forms.py:17
+msgid "Member 1"
+msgstr "Uczestnik 1"
+
+#: team/forms.py:18
+msgid "Member 2"
+msgstr "Uczestnik 2"
+
+#: team/forms.py:19
+msgid "Member 3"
+msgstr "Uczestnik 3"
+
+#: team/forms.py:20
+msgid "Member 4"
+msgstr "Uczestnik 4"
+
+#: team/forms.py:42
+msgid "Name is required"
+msgstr "Nazwa jest wymagana"
+
+#: team/forms.py:45 team/forms.py:48 team/forms.py:51
+msgid "You cannot choose the same member twice"
+msgstr "Nie możesz wybrać tej samej osoby dwa razy"
+
+#: team/forms.py:59
+msgid "Message"
+msgstr "Wiadomość"
+
+#: team/templates/team/details.html:33
+msgid "About us "
+msgstr "O nas"
+
+#: team/templates/team/details.html:44 team/templates/team/my_team.html:97
+msgid "Team members "
+msgstr "Członkowie drużyny"
+
+#: team/templates/team/details.html:75
+msgid "The requested team doesn't exist."
+msgstr "Podana drużyna nie istnieje."
+
+#: team/templates/team/join_team.html:27 team/templates/team/new.html:31
+#: team/templates/team/team_list.html:43
+msgid "New Team"
+msgstr "Nowa drużyna"
+
+#: team/templates/team/join_team.html:32 team/templates/team/new.html:36
+#: team/templates/team/team_list.html:48
+msgid "Join Team "
+msgstr "Dołącz do drużyny"
+
+#: team/templates/team/join_team.html:37
+msgid "Select the team you want to join"
+msgstr "Wybierz drużynę, do której chcesz dołączyć"
+
+#: team/templates/team/my_team.html:59
+msgid "Your team doesn't have any logo yet. Add it now!"
+msgstr "Twoja drużyna nie dodała jeszcze swojego loga. Dodaj je teraz!"
+
+#: team/templates/team/my_team.html:68
+msgid "Team name "
+msgstr "Nazwa drużyny"
+
+#: team/templates/team/my_team.html:80
+msgid "Team bio "
+msgstr "Opis drużyny"
+
+#: team/templates/team/my_team.html:90
+msgid "Your team haven't provided any information. Add it now!"
+msgstr ""
+"Twoja drużyna nie podała jeszcze żadnych dodatkowych informacji. Dodaj je "
+"teraz!"
+
+#: team/templates/team/my_team.html:127
+msgid "Leave"
+msgstr "Opuść drużynę"
+
+#: team/templates/team/my_team.html:130
+msgid "Save"
+msgstr "Zapisz"
+
+#: team/templates/team/new.html:85
+msgid "Save team"
+msgstr "Zapisz drużynę"
+
+#: team/templates/team/request_user.html:51
+msgid "You don't have any requests yet."
+msgstr "Nie otrzymałeś żadnych próśb"
+
+#: team/templates/team/request_user.html:54
+msgid "Users who want to join your team"
+msgstr "Użytkownicy, którzy chcą należeć do Twojej drużyny"
+
+#: team/templates/team/request_user.html:107
+msgid "You don't belong to any team yet."
+msgstr "Nie należysz jeszcze do żadnej drużyny"
+
+#: team/views.py:68
+msgid "Your team has been created."
+msgstr "Twoja drużyna została stworzona."
+
+#: team/views.py:182
+msgid "Your requests have been sent."
+msgstr "Twoje wiadomości zostały wysłane."
+
+#: team/views.py:224
+msgid "User has been added."
+msgstr "Użytkownik został dodany"
+
+#: templates/template.html:22
+#, python-format
+msgid "To next Bialjam: %(days)s day"
+msgid_plural "To next Bialjam: %(days)s days "
+msgstr[0] "Do kolejnego bialjamu zostało: %(days)s dni"
+msgstr[1] "Do kolejnego bialjamu zostało: %(days)s dzień"
+msgstr[2] "Do kolejnego bialjamu zostało: %(days)s dni"
+msgstr[3] "Do kolejnego bialjamu zostało: %(days)s dni"
+
+#: templates/template.html:28
+msgid "Welcome"
+msgstr "Witaj"
+
+#: templates/template.html:31
+msgid "Logout"
+msgstr "Wyloguj"
+
+#: templates/template.html:38
+msgid "Login"
+msgstr "Zaloguj się"
+
+#: vip/templates/vip/vip.html:10
+msgid "Jury"
+msgstr "Jury"
+
+#: vip/templates/vip/vip.html:13
+msgid "Lecturer"
+msgstr "Prelegenci"
+
+#: vip/templates/vip/vip_details.html:30
+msgid "About me:"
+msgstr "O mnie"
+
+#: vip/templates/vip/vip_details.html:38
+msgid "Presentations:"
+msgstr "Prezentacje"
+
+#: vip/views.py:25
+msgid "Jury:"
+msgstr "Jury"

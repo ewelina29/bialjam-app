@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>models.py</title>
+<link rel="stylesheet" href="../pycco.css">
+</head>
+<body style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #252519;
+  margin: 0; padding: 0;
+  background: #f5f5ff;">
+<div id="container" style="background:white;position:relative;">
+  <div id="background" style="position: absolute;
+  top: 0; left: 580px; right: 0; bottom: 0;
+  background: #f5f5ff;
+  border-left: 1px solid #e5e5ee;
+  z-index: 0;"></div>
+  <div class="section" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;"><h1 style="margin: 40px 0 15px 0;">models.py</h1></div>
+  </div>
+  <div class="clearall" style="clear: both;">
+  <div class="section" id="section-0" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-0" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+ 
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span></span><span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">__future__</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">unicode_literals</span>
+ 
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.db</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">models</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.contrib.auth.models</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">User</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.db.models.signals</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">post_save</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.dispatch</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">receiver</span>
+ 
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">team.models</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">Team</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-1" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-1" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="models-for-account-app" href="models-for-account-app"> Models for Account app </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-2" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-2" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">The Profile class defines the user's profile. Each profile has fields:</p>
+<pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:15px 0 15px;padding:0;padding-left:15px;'><code style='line-height: 18px;
+      font-family: Monaco, Consolas, "Lucida Console", monospace;
+      margin: 0; padding: 0;'>1. user - connecting Profiles with it's User
+2. bio - short biography
+3. location - user's city
+4. team - user's Team (if they belongs to any)
+5. image - user's avatar
+</code></pre>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="k" style="color: #954121">class</span> <span class="nc" style="color: #0000FF; font-weight: bold">Profile</span><span class="p">(</span><span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">Model</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-3" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-3" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+ 
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="n">user</span> <span class="o" style="color: #666666">=</span> <span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o" style="color: #666666">=</span><span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="n">bio</span> <span class="o" style="color: #666666">=</span> <span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">max_length</span><span class="o" style="color: #666666">=</span><span class="mi" style="color: #666666">500</span><span class="p">,</span> <span class="n">blank</span><span class="o" style="color: #666666">=</span><span class="bp" style="color: #954121">True</span><span class="p">)</span>
+    <span class="n">location</span> <span class="o" style="color: #666666">=</span> <span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o" style="color: #666666">=</span><span class="mi" style="color: #666666">30</span><span class="p">,</span> <span class="n">blank</span><span class="o" style="color: #666666">=</span><span class="bp" style="color: #954121">True</span><span class="p">)</span>
+    <span class="n">team</span> <span class="o" style="color: #666666">=</span> <span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Team</span><span class="p">,</span> <span class="n">on_delete</span><span class="o" style="color: #666666">=</span><span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o" style="color: #666666">=</span><span class="bp" style="color: #954121">True</span><span class="p">,</span> <span class="n">blank</span><span class="o" style="color: #666666">=</span><span class="bp" style="color: #954121">True</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o" style="color: #666666">=</span> <span class="n">models</span><span class="o" style="color: #666666">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o" style="color: #666666">=</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">blank</span><span class="o" style="color: #666666">=</span><span class="bp" style="color: #954121">True</span><span class="p">,</span> <span class="n">null</span><span class="o" style="color: #666666">=</span><span class="bp" style="color: #954121">True</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-4" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-4" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+ 
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="k" style="color: #954121">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp" style="color: #954121">self</span><span class="p">):</span>
+        <span class="k" style="color: #954121">return</span> <span class="bp" style="color: #954121">self</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">username</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-5" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-5" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+ 
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="nd" style="color: #AA22FF">@receiver</span><span class="p">(</span><span class="n">post_save</span><span class="p">,</span> <span class="n">sender</span><span class="o" style="color: #666666">=</span><span class="n">User</span><span class="p">)</span>
+<span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">create_user_profile</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">created</span><span class="p">,</span> <span class="o" style="color: #666666">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k" style="color: #954121">if</span> <span class="n">created</span><span class="p">:</span>
+        <span class="n">Profile</span><span class="o" style="color: #666666">.</span><span class="n">objects</span><span class="o" style="color: #666666">.</span><span class="n">create</span><span class="p">(</span><span class="n">user</span><span class="o" style="color: #666666">=</span><span class="n">instance</span><span class="p">)</span>
+ 
+ 
+<span class="nd" style="color: #AA22FF">@receiver</span><span class="p">(</span><span class="n">post_save</span><span class="p">,</span> <span class="n">sender</span><span class="o" style="color: #666666">=</span><span class="n">User</span><span class="p">)</span>
+<span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">save_user_profile</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="o" style="color: #666666">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">instance</span><span class="o" style="color: #666666">.</span><span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+ 
+ 
+<span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">directory_path</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="k" style="color: #954121">return</span> <span class="s1" style="color: #219161">'images/users/{0}'</span><span class="o" style="color: #666666">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+ 
+</pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+</div>
+</div>
+</body>
+</html>

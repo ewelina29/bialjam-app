@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>views.py</title>
+<link rel="stylesheet" href="../pycco.css">
+</head>
+<body style="font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #252519;
+  margin: 0; padding: 0;
+  background: #f5f5ff;">
+<div id="container" style="background:white;position:relative;">
+  <div id="background" style="position: absolute;
+  top: 0; left: 580px; right: 0; bottom: 0;
+  background: #f5f5ff;
+  border-left: 1px solid #e5e5ee;
+  z-index: 0;"></div>
+  <div class="section" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;"><h1 style="margin: 40px 0 15px 0;">views.py</h1></div>
+  </div>
+  <div class="clearall" style="clear: both;">
+  <div class="section" id="section-0" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-0" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">Accounts</p>
+<ol>
+<li>
+<strong>Signup</strong> - Signup to create account (jump to section in  <a href="account-views.html#signup" style="color: #261a3b;">views.py</a> )</li>
+<li>
+<strong>Update profile</strong> - Update profile( jump to section in  <a href="account-views.html#update_profile" style="color: #261a3b;">views.py</a> )</li>
+<li>
+<strong>Change password</strong> - Changing password(jump to section in  <a href="account-views.html#change_password" style="color: #261a3b;">views.py</a>)</li>
+<li>
+<strong>Remove user account</strong> - User remove his account(jump to section in  <a href="account-views.html#remove_user" style="color: #261a3b;">views.py</a>)</li>
+<li>
+<strong>List of all users</strong> - Show list of all users(jump to section in  <a href="account-views.html#users_list" style="color: #261a3b;">views.py</a>)</li>
+<li>
+<strong>User details</strong> - Show user details(jump to section in  <a href="account-views.html#users_details" style="color: #261a3b;">views.py</a>)</li>
+</ol>
+</div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span></span><span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.contrib</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">messages</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.contrib.auth</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">login</span><span class="p">,</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">update_session_auth_hash</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.contrib.auth.decorators</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">login_required</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.contrib.auth.forms</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">PasswordChangeForm</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.contrib.auth.models</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">User</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.db</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">transaction</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.template</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">loader</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.shortcuts</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">django.utils.translation</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">ugettext_lazy</span> <span class="k" style="color: #954121">as</span> <span class="n">_</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">bialjam.core</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">CustomHttpResponse</span>
+ 
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">account.models</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">Profile</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">.forms</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">SignUpForm</span><span class="p">,</span> <span class="n">UserForm</span><span class="p">,</span> <span class="n">ProfileForm</span>
+<span class="kn" style="color: #954121; font-weight: bold">from</span> <span class="nn" style="color: #0000FF; font-weight: bold">information.models</span> <span class="kn" style="color: #954121; font-weight: bold">import</span> <span class="n">Information</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-1" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-1" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+ 
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-2" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-2" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">defined in  <a href="account-models.html" style="color: #261a3b;">models.py</a></p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-3" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-3" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="signup" href="signup"> signup </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">signup</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-4" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-4" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">Signup</p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="k" style="color: #954121">if</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">method</span> <span class="o" style="color: #666666">==</span> <span class="s1" style="color: #219161">'POST'</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o" style="color: #666666">=</span> <span class="n">SignUpForm</span><span class="p">(</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k" style="color: #954121">if</span> <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user</span> <span class="o" style="color: #666666">=</span> <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">refresh_from_db</span><span class="p">()</span>
+            <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">birth_date</span> <span class="o" style="color: #666666">=</span> <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">cleaned_data</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="s1" style="color: #219161">'birth_date'</span><span class="p">)</span>
+            <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">raw_password</span> <span class="o" style="color: #666666">=</span> <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">cleaned_data</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="s1" style="color: #219161">'password1'</span><span class="p">)</span>
+            <span class="n">user</span> <span class="o" style="color: #666666">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o" style="color: #666666">=</span><span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o" style="color: #666666">=</span><span class="n">raw_password</span><span class="p">)</span>
+            <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+            <span class="n">messages</span><span class="o" style="color: #666666">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1" style="color: #219161">'Your account has been created.'</span><span class="p">))</span>
+    <span class="k" style="color: #954121">else</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o" style="color: #666666">=</span> <span class="n">SignUpForm</span><span class="p">()</span>
+ 
+    <span class="n">template</span> <span class="o" style="color: #666666">=</span> <span class="n">loader</span><span class="o" style="color: #666666">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1" style="color: #219161">'account/signup.html'</span><span class="p">)</span>
+ 
+    <span class="n">context</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+        <span class="s1" style="color: #219161">'form'</span><span class="p">:</span> <span class="n">form</span>
+    <span class="p">}</span>
+    <span class="k" style="color: #954121">return</span> <span class="n">CustomHttpResponse</span><span class="o" style="color: #666666">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-5" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-5" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="update_profile" href="update_profile"> update_profile </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="nd" style="color: #AA22FF">@login_required</span>
+<span class="nd" style="color: #AA22FF">@transaction.atomic</span>
+<span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">update_profile</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-6" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-6" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">Update profile</p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="n">profile</span> <span class="o" style="color: #666666">=</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">profile</span>
+    <span class="n">user_avatar</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">image</span>
+ 
+    <span class="k" style="color: #954121">if</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">POST</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="s1" style="color: #219161">'save_avatar'</span><span class="p">)</span> <span class="ow" style="color: #AA22FF; font-weight: bold">and</span> <span class="s1" style="color: #219161">'avatar_image'</span> <span class="ow" style="color: #AA22FF; font-weight: bold">in</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">FILES</span><span class="p">:</span>
+        <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">image</span> <span class="o" style="color: #666666">=</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">FILES</span><span class="p">[</span><span class="s1" style="color: #219161">'avatar_image'</span><span class="p">]</span>
+        <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">user_avatar</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">image</span>
+ 
+    <span class="k" style="color: #954121">if</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">POST</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="s1" style="color: #219161">'save_fields'</span><span class="p">):</span>
+        <span class="n">user_form</span> <span class="o" style="color: #666666">=</span> <span class="n">UserForm</span><span class="p">(</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">instance</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">profile_form</span> <span class="o" style="color: #666666">=</span> <span class="n">ProfileForm</span><span class="p">(</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">FILES</span><span class="p">,</span> <span class="n">instance</span><span class="o" style="color: #666666">=</span><span class="n">profile</span><span class="p">)</span>
+ 
+        <span class="k" style="color: #954121">if</span> <span class="n">user_form</span><span class="o" style="color: #666666">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="ow" style="color: #AA22FF; font-weight: bold">and</span> <span class="n">profile_form</span><span class="o" style="color: #666666">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user_form</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">profile_form</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+ 
+        <span class="k" style="color: #954121">else</span><span class="p">:</span>
+ 
+            <span class="n">messages</span><span class="o" style="color: #666666">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s1" style="color: #219161">'Please correct the error below.'</span><span class="p">))</span>
+    <span class="k" style="color: #954121">else</span><span class="p">:</span>
+        <span class="n">user_form</span> <span class="o" style="color: #666666">=</span> <span class="n">UserForm</span><span class="p">(</span><span class="n">instance</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">profile_form</span> <span class="o" style="color: #666666">=</span> <span class="n">ProfileForm</span><span class="p">(</span><span class="n">instance</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">profile</span><span class="p">)</span>
+ 
+    <span class="n">template</span> <span class="o" style="color: #666666">=</span> <span class="n">loader</span><span class="o" style="color: #666666">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1" style="color: #219161">'account/details.html'</span><span class="p">)</span>
+ 
+    <span class="n">context</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+        <span class="s1" style="color: #219161">'user_form'</span><span class="p">:</span> <span class="n">user_form</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'profile_form'</span><span class="p">:</span> <span class="n">profile_form</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'user_avatar'</span><span class="p">:</span> <span class="n">user_avatar</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k" style="color: #954121">return</span> <span class="n">CustomHttpResponse</span><span class="o" style="color: #666666">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-7" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-7" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="change_password" href="change_password"> change_password </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="nd" style="color: #AA22FF">@login_required</span>
+<span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">change_password</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-8" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-8" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">Changing password</p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="k" style="color: #954121">if</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">method</span> <span class="o" style="color: #666666">==</span> <span class="s1" style="color: #219161">'POST'</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o" style="color: #666666">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">user</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="p">,</span> <span class="n">data</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">POST</span><span class="p">)</span>
+ 
+        <span class="k" style="color: #954121">if</span> <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">update_session_auth_hash</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="p">)</span>
+            <span class="k" style="color: #954121">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1" style="color: #219161">'/accounts/details'</span><span class="p">)</span>
+    <span class="k" style="color: #954121">else</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o" style="color: #666666">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">user</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="p">)</span>
+ 
+    <span class="n">template</span> <span class="o" style="color: #666666">=</span> <span class="n">loader</span><span class="o" style="color: #666666">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1" style="color: #219161">'account/change-password.html'</span><span class="p">)</span>
+ 
+    <span class="n">context</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+        <span class="s1" style="color: #219161">'form'</span><span class="p">:</span> <span class="n">form</span>
+    <span class="p">}</span>
+    <span class="k" style="color: #954121">return</span> <span class="n">CustomHttpResponse</span><span class="o" style="color: #666666">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-9" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-9" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="remove_user" href="remove_user"> remove_user </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="nd" style="color: #AA22FF">@login_required</span>
+<span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">remove_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-10" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-10" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">User remove his account</p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="k" style="color: #954121">if</span> <span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">method</span> <span class="o" style="color: #666666">==</span> <span class="s1" style="color: #219161">'POST'</span><span class="p">:</span>
+ 
+        <span class="n">rem</span> <span class="o" style="color: #666666">=</span> <span class="n">User</span><span class="o" style="color: #666666">.</span><span class="n">objects</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o" style="color: #666666">=</span><span class="n">request</span><span class="o" style="color: #666666">.</span><span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">username</span><span class="p">)</span>
+        <span class="k" style="color: #954121">if</span> <span class="n">rem</span> <span class="ow" style="color: #AA22FF; font-weight: bold">is</span> <span class="ow" style="color: #AA22FF; font-weight: bold">not</span> <span class="bp" style="color: #954121">None</span><span class="p">:</span>
+            <span class="n">rem</span><span class="o" style="color: #666666">.</span><span class="n">is_active</span> <span class="o" style="color: #666666">=</span> <span class="bp" style="color: #954121">False</span>
+            <span class="n">rem</span><span class="o" style="color: #666666">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k" style="color: #954121">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1" style="color: #219161">'/home'</span><span class="p">)</span>
+ 
+    <span class="n">template</span> <span class="o" style="color: #666666">=</span> <span class="n">loader</span><span class="o" style="color: #666666">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1" style="color: #219161">'account/remove-user.html'</span><span class="p">)</span>
+ 
+    <span class="k" style="color: #954121">return</span> <span class="n">CustomHttpResponse</span><span class="o" style="color: #666666">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="bp" style="color: #954121">None</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-11" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-11" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="users_list" href="users_list"> users_list </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">users_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-12" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-12" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">Show list of all users</p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="n">all_users</span> <span class="o" style="color: #666666">=</span> <span class="p">[]</span>
+    <span class="n">users</span> <span class="o" style="color: #666666">=</span> <span class="n">User</span><span class="o" style="color: #666666">.</span><span class="n">objects</span><span class="o" style="color: #666666">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k" style="color: #954121">for</span> <span class="n">user</span> <span class="ow" style="color: #AA22FF; font-weight: bold">in</span> <span class="n">users</span><span class="p">:</span>
+        <span class="n">profile</span> <span class="o" style="color: #666666">=</span> <span class="n">Profile</span><span class="o" style="color: #666666">.</span><span class="n">objects</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o" style="color: #666666">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">team</span> <span class="o" style="color: #666666">=</span> <span class="s1" style="color: #219161">''</span>
+        <span class="n">location</span> <span class="o" style="color: #666666">=</span> <span class="s1" style="color: #219161">''</span>
+        <span class="k" style="color: #954121">if</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">team</span> <span class="ow" style="color: #AA22FF; font-weight: bold">is</span> <span class="ow" style="color: #AA22FF; font-weight: bold">not</span> <span class="bp" style="color: #954121">None</span><span class="p">:</span>
+            <span class="n">team</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">team</span><span class="o" style="color: #666666">.</span><span class="n">name</span>
+        <span class="k" style="color: #954121">if</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">location</span> <span class="ow" style="color: #AA22FF; font-weight: bold">is</span> <span class="ow" style="color: #AA22FF; font-weight: bold">not</span> <span class="bp" style="color: #954121">None</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">location</span>
+ 
+        <span class="n">user_info</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+            <span class="s1" style="color: #219161">'id'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s1" style="color: #219161">'username'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="s1" style="color: #219161">'first_name'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">first_name</span><span class="p">,</span>
+            <span class="s1" style="color: #219161">'last_name'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">last_name</span><span class="p">,</span>
+            <span class="s1" style="color: #219161">'team'</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
+            <span class="s1" style="color: #219161">'image'</span><span class="p">:</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">image</span><span class="p">,</span>
+            <span class="s1" style="color: #219161">'location'</span><span class="p">:</span> <span class="n">location</span>
+        <span class="p">}</span>
+ 
+        <span class="n">all_users</span><span class="o" style="color: #666666">.</span><span class="n">append</span><span class="p">(</span><span class="n">user_info</span><span class="p">)</span>
+ 
+    <span class="n">template</span> <span class="o" style="color: #666666">=</span> <span class="n">loader</span><span class="o" style="color: #666666">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1" style="color: #219161">'account/users_list.html'</span><span class="p">)</span>
+ 
+    <span class="n">context</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+        <span class="s1" style="color: #219161">'users_list'</span><span class="p">:</span> <span class="n">all_users</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k" style="color: #954121">return</span> <span class="n">CustomHttpResponse</span><span class="o" style="color: #666666">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-13" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-13" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <h3 style="margin:40px 0 15px 0;margin-top:0;"><span id="users_details" href="users_details"> users_details </span></h3>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'><span class="k" style="color: #954121">def</span> <span class="nf" style="color: #0000FF">users_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">pk</span><span class="p">):</span></pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+  <div class="section" id="section-14" style="position: relative;">
+    <div class="docs" style="float: left;
+  max-width: 500px;
+  min-width: 500px;
+  min-height: 5px;
+  padding: 10px 25px 1px 50px;
+  vertical-align: top;
+  text-align: left;">
+      <div class="octowrap" style="position: relative;">
+        <a class="octothorpe" href="#section-14" style="color:#454545;font:12px Arial;text-decoration:none;position:absolute;top:3px;left:-20px;padding:1px 2px;opacity:0;-webkit-transition:opacity 0.2s linear;">#</a>
+      </div>
+      <p style="margin: 0 0 15px 0;">Show user details</p>
+    </div>
+    <div class="code" style="margin-left: 580px;
+  padding: 14px 15px 16px 50px;
+  vertical-align: top;">
+      <div class="highlight"><pre style='line-height:18px;font-family:Monaco, Consolas, "Lucida Console", monospace;margin:0;padding:0;font-size:12px;'>    <span class="k" style="color: #954121">try</span><span class="p">:</span>
+        <span class="n">user</span> <span class="o" style="color: #666666">=</span> <span class="n">User</span><span class="o" style="color: #666666">.</span><span class="n">objects</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o" style="color: #666666">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="k" style="color: #954121">except</span> <span class="n">User</span><span class="o" style="color: #666666">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o" style="color: #666666">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1" style="color: #219161">'Requested user does not exist!'</span><span class="p">)</span>
+        <span class="k" style="color: #954121">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1" style="color: #219161">'account/user_details.html'</span><span class="p">,</span> <span class="p">)</span>
+ 
+    <span class="n">profile</span> <span class="o" style="color: #666666">=</span> <span class="n">Profile</span><span class="o" style="color: #666666">.</span><span class="n">objects</span><span class="o" style="color: #666666">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o" style="color: #666666">=</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">team</span> <span class="o" style="color: #666666">=</span> <span class="s1" style="color: #219161">''</span>
+    <span class="n">location</span> <span class="o" style="color: #666666">=</span> <span class="s1" style="color: #219161">''</span>
+    <span class="n">bio</span> <span class="o" style="color: #666666">=</span> <span class="s1" style="color: #219161">''</span>
+    <span class="k" style="color: #954121">if</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">team</span> <span class="ow" style="color: #AA22FF; font-weight: bold">is</span> <span class="ow" style="color: #AA22FF; font-weight: bold">not</span> <span class="bp" style="color: #954121">None</span><span class="p">:</span>
+        <span class="n">team</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">team</span><span class="o" style="color: #666666">.</span><span class="n">name</span>
+    <span class="k" style="color: #954121">if</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">location</span> <span class="ow" style="color: #AA22FF; font-weight: bold">is</span> <span class="ow" style="color: #AA22FF; font-weight: bold">not</span> <span class="bp" style="color: #954121">None</span><span class="p">:</span>
+        <span class="n">location</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">location</span>
+    <span class="k" style="color: #954121">if</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">bio</span> <span class="ow" style="color: #AA22FF; font-weight: bold">is</span> <span class="ow" style="color: #AA22FF; font-weight: bold">not</span> <span class="bp" style="color: #954121">None</span><span class="p">:</span>
+        <span class="n">bio</span> <span class="o" style="color: #666666">=</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">bio</span>
+ 
+    <span class="n">user</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+        <span class="s1" style="color: #219161">'id'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'username'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'first_name'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">first_name</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'last_name'</span><span class="p">:</span> <span class="n">user</span><span class="o" style="color: #666666">.</span><span class="n">last_name</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'team'</span><span class="p">:</span> <span class="n">team</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'image'</span><span class="p">:</span> <span class="n">profile</span><span class="o" style="color: #666666">.</span><span class="n">image</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'location'</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span>
+        <span class="s1" style="color: #219161">'bio'</span><span class="p">:</span> <span class="n">bio</span>
+    <span class="p">}</span>
+ 
+    <span class="n">template</span> <span class="o" style="color: #666666">=</span> <span class="n">loader</span><span class="o" style="color: #666666">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1" style="color: #219161">'account/user_details.html'</span><span class="p">)</span>
+ 
+    <span class="n">context</span> <span class="o" style="color: #666666">=</span> <span class="p">{</span>
+        <span class="s1" style="color: #219161">'user'</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k" style="color: #954121">return</span> <span class="n">CustomHttpResponse</span><span class="o" style="color: #666666">.</span><span class="n">send</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+ 
+</pre></div>
+    </div>
+  </div>
+  <div class="clearall" style="clear: both;"></div>
+</div>
+</div>
+</body>
+</html>

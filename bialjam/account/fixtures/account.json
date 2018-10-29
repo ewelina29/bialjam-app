@@ -1,0 +1,272 @@
+[
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 1,
+      "first_name": "Admin",
+      "last_name": "Adminowski",
+      "email": "admin@o2.pl",
+      "is_staff": 1,
+      "is_active": 1,
+      "username": "admin",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 0
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Jan",
+      "last_name": "Kowalski",
+      "email": "jan@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "jan",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Janina",
+      "last_name": "Kowalska",
+      "email": "janina@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "janina",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Katarzyna",
+      "last_name": "Nowak",
+      "email": "katarzyna@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "katarzyna",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Tomasz",
+      "last_name": "Wojna",
+      "email": "tomasz@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "tomasz",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Maria",
+      "last_name": "Wiśnia",
+      "email": "maria@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "maria",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Zenon",
+      "last_name": "Kowalski",
+      "email": "zenon@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "zenon",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Barbara",
+      "last_name": "Krzywiźniak",
+      "email": "barbara@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "barbara",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Filip",
+      "last_name": "Kowal",
+      "email": "filip@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "filip",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Ewa",
+      "last_name": "Grzybek",
+      "email": "ewa@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "ewa",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Jan",
+      "last_name": "Malinowski",
+      "email": "jan_m@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "jan_m",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Grzegorz",
+      "last_name": "Nowacki",
+      "email": "grzgorz@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "grzegorz",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Anna",
+      "last_name": "Mackowiak",
+      "email": "anna@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "anna",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Marta",
+      "last_name": "Zielonka",
+      "email": "marta@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "marta",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Ewelina",
+      "last_name": "Krynicka",
+      "email": "ewelina@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "ewelina",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Julia",
+      "last_name": "Romeo",
+      "email": "julia@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "julia",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Karolina",
+      "last_name": "Drzewko",
+      "email": "karolina@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "karolina",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "password": "haslo1234",
+      "is_superuser": 0,
+      "first_name": "Marcin",
+      "last_name": "Kowalski",
+      "email": "marcin@o2.pl",
+      "is_staff": 0,
+      "is_active": 1,
+      "username": "marcin",
+      "last_login": "2018-01-01"
+    },
+    "model": "auth.user",
+    "pk": 17
+  }
+]

@@ -1,0 +1,108 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/details.css' %}">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="maincontent">
+        <form class="cont" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="contentdiv">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 labinpdiv">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 imagediv">
+                    {% if user_avatar %}
+                        <img src={{ user_avatar.url }}>
+                    {% else %}
+                        <img id="img-def" src="{% static 'icons/usericon.svg' %}">
+                    {% endif %}
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 add-img-div">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 img-button">
+                            <input type="file" id="files" name="avatar_image">
+                        </div>
+                        <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8 img-button"></div>
+                        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 img-button">
+                            <input type="submit" id="save-avatar" name="save_avatar" value="{% trans "Save avatar" %}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                </div>
+            </div>
+            {% for p in user_form %}
+                <div class="contentdiv">
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 labinpdiv">
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                        {{ p.label_tag }}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                        {{ p }}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    </div>
+                </div>
+            {% endfor %}
+            {% for p in profile_form %}
+                <div class="contentdiv">
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 labinpdiv">
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                        {{ p.label_tag }}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                        {{ p }}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="contentdiv">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 labinpdiv">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                    <label>{% trans 'Password' %}:</label>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                    <a href="/accounts/change-password/">
+                        <input type="button" href="/accounts/change-password/" class="submitbutton changepasswordbtn" value="{% trans 'Change password' %}">
+                    </a>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                </div>
+            </div>
+
+            <div class="contentdiv">
+              <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 labinpdiv">
+              </div>
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 labinpdiv">
+                  <label>{% trans 'Delete account' %}:</label>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 labinpdiv">
+                  <a href="/accounts/remove-user/">
+                      <input type="button" href="/accounts/remove-user/" class="submitbutton changepasswordbtn" value="{% trans 'Delete account' %}">
+                  </a>
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+              </div>
+
+
+
+            </div>
+
+            <div class="contentdiv">
+                <div class="col-xs-7 col-sm-8 col-md-8 col-lg-8 labinpdiv">
+                </div>
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 labinpdiv">
+                    <input class="submitbutton" name="save_fields" type="submit" value="{% trans 'Save changes' %}">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 labinpdiv">
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,175 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+
+html {
+    display: flex;
+}
+
+a:focus {
+    outline: none;
+    text-decoration: none;
+    color: #000000;
+}
+
+body {
+    background-color: #FCEE82;
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+#home-button {
+    display: block;
+}
+
+#contet-div {
+    padding: 0 !important;
+}
+
+.padding-set-0 {
+    padding: 0px;
+}
+
+#header {
+    background-color: #202020;
+    height: 1.5vw;
+    width: 100%;
+}
+
+/* navbar*/
+
+#hello-text {
+    width: 100%;
+    color: #000000;
+    font-family: siteFont;
+    margin: 0px;
+    padding: 1vw 0vw;
+    display: block;
+    text-align: center;
+}
+
+#counting-down-text {
+    color: #000000;
+    font-family: siteFont;
+    margin: 0px;
+    padding: 1vw 0vw;
+    display: block;
+}
+
+.button {
+    color: #000000;
+    font-family: siteFont;
+    margin: 0px;
+    padding: 1vw 2vw;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: #F4E009;
+    color: #000000;
+    font-family: siteFont;
+    text-decoration: none;
+}
+
+/*footer*/
+#footer {
+    width: 100%;
+    height: 10vw;
+}
+
+/*content*/
+.container {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    width: 100%;
+    background-color: #202020;
+    min-height: 80vh;
+}
+
+#logo-image {
+    padding: 4.5vw;
+}
+
+@media only screen and (max-width: 425px ) {
+
+    #hellotext {
+        font-size: 1.5vw;
+    }
+
+    #counting-down-text {
+        font-size: 1.5vw;
+    }
+
+    .button {
+        font-size: 1.5vw;
+    }
+}
+
+@media only screen and (min-width: 426px ) and  (max-width: 767px) {
+
+    #hellotext {
+        font-size: 2vw;
+    }
+
+    #counting-down-text {
+        font-size: 2vw;
+    }
+
+    .button {
+        font-size: 2vw;
+    }
+}
+
+@media only screen and (min-width: 768px ) and (max-width: 991px) {
+    #hellotext {
+        font-size: 1.5vw;
+    }
+
+    #counting-down-text {
+        font-size: 1.5vw;
+    }
+
+    .button {
+        font-size: 1.5vw;
+    }
+}
+
+@media only screen and (min-width: 992px ) and (max-width: 1199px) {
+    #hellotext {
+        font-size: 1.8vw;
+    }
+
+    #counting-down-text {
+        font-size: 1.8vw;
+    }
+
+    .button {
+        font-size: 1.8vw;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #hellotext {
+        font-size: 1.5vw;
+    }
+
+    #counting-down-text {
+        font-size: 1.5vw;
+    }
+
+    .button {
+        font-size: 1.5vw;
+    }
+}

@@ -1,0 +1,79 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block content %}
+    <script src="{% static 'scripts/new_team_image.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/newteam.css' %}">
+
+    {% if messages %}
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <div class="messages">
+            {% for message in messages %}
+            <div class="{{ message.tags }}">
+                {{ message }}
+                <a href="/" class="close">✖</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+
+
+    {% else %}
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="container">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+            <p id="headertext">{% trans 'Add game' %}</p>
+        </div>
+        <form method="POST" class="post-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 remove-padding" id="img-div">
+                    <img id="img-def" src="{% static 'icons/padicon.svg' %}">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 remove-padding" id="input-img">
+                    <input type="file" id="files" name="game_image" value="null">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+            </div>
+            {% for field in form %}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 remove-padding">
+                        <p class="textlabel">{{ field.label }}</p>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 inputdiv">
+                        {{ field }}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 remove-padding"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 remove-padding">
+                        <p>{{ field.errors }}</p>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+                </div>
+            {% endfor %}
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 remove-padding"></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 remove-padding">
+                    <label class="textlabel" for="info-text">{% trans 'Description' %}</label>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 inputdiv">
+                    <textarea id="info-text" name="description_game" rows="10" cols="40" maxlength="500"></textarea>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 remove-padding">
+                <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 remove-padding"></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 remove-padding" id="buttoncontainer">
+                    <button type="submit" formnovalidate class="savebutton">{% trans 'Add game' %}</button>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 remove-padding"></div>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+{% endblock %}

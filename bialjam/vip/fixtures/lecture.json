@@ -1,0 +1,20 @@
+[
+  {
+    "fields": {
+      "date": "2018-06-08 12:30",
+      "subject": "Lorem ipsum",
+      "lecturer_id": 3
+    },
+    "model": "vip.lesson",
+    "pk": 0
+  },
+  {
+    "fields": {
+      "date": "2018-06-08 13:30",
+      "subject": "Lorem ipsumeme",
+      "lecturer_id": 4
+    },
+    "model": "vip.lesson",
+    "pk": 1
+  }
+]

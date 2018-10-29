@@ -1,0 +1,328 @@
+body {
+    font-family: siteFont;
+}
+
+button:focus, input:focus, select:focus {
+    outline: none;
+}
+
+option {
+    font-size: 1.2vw;
+}
+
+p {
+    margin: 0px;
+}
+
+option {
+    background-color: #D3D2D2;
+}
+
+a {
+    color: #000000;
+}
+
+
+
+.info-header {
+    width: 100%;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    font-size: 2.0vw;
+    text-align: center;
+    font-family: siteFont;
+}
+
+.tab-button {
+    font-family: siteFont;
+}
+
+.tab-button:hover {
+    background-color: #bbbbbb;
+
+}
+
+#activeTab {
+    background-color: #b1b1b1;
+}
+
+.title {
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin: 0 !important;
+
+}
+
+#first {
+    display: block;
+}
+
+#second {
+    display: none;
+}
+
+#third {
+    display: none;
+}
+
+.inputdiv {
+    display: block;
+    padding: 0px;
+}
+
+.textlabel {
+    color: #FFFFFF;
+    font-size: 1.5vw;
+    margin: 0px;
+}
+
+#headertext {
+    text-align: center;
+    font-size: 3vw;
+}
+
+#containerr {
+    background-color: #7B7979;
+    display: block;
+    height: 100%;
+    padding: 0vw 2vw;
+}
+
+#buttoncontainer {
+    padding: 0px;
+}
+
+.savebutton {
+    padding: 0.5vw 0vw;
+    width: 100%;
+    background-color: #FCEE82;
+    border: 0px;
+    font-size: 1.2vw;
+}
+
+#info-text {
+    height: 8vw;
+    width: 100%;
+    text-align: left;
+    background-color: #D3D2D2;
+    padding-left: 5px;
+
+}
+
+#id_members {
+    height: 8vw;
+    overflow: auto;
+}
+
+.remove-padding {
+    padding: 0px;
+}
+
+#img-def {
+    width: 80%;
+    height: auto;
+    max-height: 8vw;
+}
+
+#input-img {
+    padding-top: 3vw;
+}
+
+#info-text {
+    /*height: 40% !important;*/
+    /*width:50%;*/
+    text-align: start;
+    vertical-align: top;
+}
+
+.tab-container {
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0 !important;
+    min-height: 73vh;
+
+}
+
+
+#info {
+    border-bottom: 1px solid black;
+    padding: 1vw 0;
+}
+
+
+#avatar {
+    max-height: 4vw;
+    max-width: 7vw;
+    margin: auto;
+}
+
+#name {
+    font-size: 2vw;
+    width: 100%;
+}
+
+.next-text {
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #333;
+    width: 100%;
+    display: block;
+}
+
+.next-text:hover {
+    color: #202020;
+}
+
+.prev-text {
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #333;
+    width: 100%;
+}
+
+.messages {
+    font-family: siteFont;
+    background-color: #FCEE82;
+    padding: 1vw;
+    border-radius: 5px;
+    font-size: 2vw;
+    margin-top: 15px;
+
+}
+
+.prev-text:hover {
+    color: #202020;
+
+}
+
+.page-text {
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    text-align: center;
+    color: #333;
+    width: 100%;
+    display: block;
+}
+
+.page-text:hover {
+    color: #202020;
+
+}
+
+.remove-padding {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.top-bot-padding-5 {
+    padding: 5px 0;
+}
+
+.tabs {
+    background-color: #7B7979;
+}
+
+.user-img {
+    width: 3vw;
+    max-height: 1vh;
+}
+
+#min-height {
+    min-height: 18vh;
+}
+
+#team-img {
+    min-height: 18vh;
+}
+
+#list-container {
+    overflow-y: scroll;
+    height: 15vh;
+}
+
+.list-scrollable {
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0 !important;
+    height: 70vh;
+    overflow-y: scroll;
+
+}
+
+#add-btn {
+    font-size: 2vw;
+    padding: 1.2vw;
+    text-decoration: none;
+}
+
+#trash-btn {
+    font-size: 2vw;
+    padding: 1vw;
+    text-decoration: none;
+
+}
+
+#trash-btn:hover {
+    color: #FCEE82;
+}
+
+#add-btn-div a {
+    text-decoration: none;
+    /*color: #FCEE82;*/
+}
+
+#add-btn:hover {
+    color: #FCEE82;
+}
+
+#team-name {
+    /*width: 100%;*/
+    font-size: 3.5vw;
+    text-align: center;
+    font-family: siteFont;
+}
+
+#add-btn-div {
+    float: right;
+    padding-right: 2vw;
+
+}
+
+.padding-set-0 {
+    padding: 0 !important;
+}
+
+#team-confirm {
+    /*width: 100%;*/
+    font-size: 2.0vw;
+    margin-top: 8vw;
+    text-align: center;
+    font-family: siteFont;
+}
+
+#confirm-button {
+    padding: 0.5vw 0vw;
+    width: 30%;
+    background-color: #FCEE82;
+    border: 0px;
+    font-size: 1.2vw;
+}
+.ref-to-game{
+    text-decoration: none;
+    color: #000000;
+    display:block;
+}
+.ref-to-game:hover{
+    color: #F4E009;
+    text-decoration: none;
+}

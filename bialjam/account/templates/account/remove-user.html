@@ -1,0 +1,21 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/account.css' %}">
+<div id="remove-user">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="remove-user-container">
+    <div>
+        <form class = "cont" method="post">
+          {% csrf_token %}
+          <div id="">
+          <p>{% trans "Do you really want to remove account?" %}</p>
+          {{ user_form.as_p }}
+            <input type="submit" name="action" value="{% trans 'Remove' %}" id="confirm-button">
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

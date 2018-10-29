@@ -1,0 +1,111 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+
+body {
+    font-family: siteFont;
+}
+input[type=file] {
+
+    display: block;
+    width: 100%;
+    font-size: 1.2vw;
+    padding-left: 5px;
+}
+input {
+    background-color: #D3D2D2;
+    border: none;
+
+    width: 100%;
+    font-size: 1.2vw;
+    padding-left: 5px;
+}
+
+textarea {
+    background-color: #D3D2D2;
+
+    width: 100%;
+
+    font-size: 1.2vw;
+    height: 10vw;
+    padding-left: 5px;
+
+}
+
+p {
+    margin-bottom: 0px !important;
+    font-size: 1.2vw;
+
+}
+
+label {
+    text-align: right;
+    width: 100%;
+    font-size: 1.2vw;
+    float: left;
+    color: #FFFFFF;
+    padding-right: 3vw;
+}
+
+#maincontent {
+    height: 100%;
+    background-color: #7B7979;
+}
+
+.labinpdiv {
+    padding: 0px 0px 0.5vw 0px;
+    display: flex;
+}
+
+.contentdiv {
+    width: 100%;
+    display: flex;
+}
+
+.cont {
+    padding-top: 2vw;
+}
+
+.img-button {
+    padding: 0px;
+}
+
+.submitbutton {
+    float: right;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2vw;
+    background-color: #FCEE82;
+}
+
+#save-avatar {
+    background-color: #FCEE82;
+}
+
+.imagediv {
+    padding: 1.5vw;
+}
+
+#img-def {
+    font-size: 1.2vw;
+    background-color: #F0F0F0;
+}
+
+.add-img-div {
+    padding: 4vw 0px 0px 0px;
+
+}
+
+#infodiv{
+    background-color: #FCEE82;
+    padding: 2vw;
+
+    font-size: 1vw;
+    margin-top: 10vw;
+    font-size: 1.6vw;
+    text-align: center;
+    color:black;
+
+
+}

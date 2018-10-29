@@ -1,0 +1,74 @@
+{% extends "template.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+
+{#    <script src="{% static 'scripts/images.js'%}"></script>#}
+<link rel="stylesheet" type="text/css" href= "{% static '/css/team.css' %}" >
+
+
+<div class="container" id="team_container"><!-- szczegoly druzyny -->
+    {% if team_name %}
+      <div id="teamdetails">
+        <div id="team_texts" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="team_name">
+              <p>{{ team_name }}</p>
+            </div>
+        </div>
+
+            <div id="team_logo" class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              {% if team_logo %}
+                  <img id="team_img" style="width: 20vw" src={{ team_logo.url }}>
+              {% endif %}
+            </div>
+
+            <div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="team_info">
+              </br>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="team_desc">
+                {% if team_info %}
+                    <p>{{ team_info }}</p>
+                {% endif %}
+                </div>
+
+              </br>
+              </br>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="team_members">
+                <br>
+                <div>
+                  {% for member in team_members %}
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="user_image">
+                  {% if user.image %}
+                      <img style="width: 2vw" src={{ user.image.url }}>
+                  {% else %}
+                      <img style="width: 2vw" src="{% static 'icons/usericon.svg' %}">
+                  {% endif %}
+                  </div>
+                  <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                      <p>{{ member.username }}
+                      {{ member.first_name }}
+                      {{ member.last_name }}</p>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              </div>
+            </div>
+      </div>
+
+    {% else %}
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="teamdiv">
+      <div id="teamdetails">
+        <p>{% trans "You don't belong to any team yet." %}</p>
+        <a href="/team/new/">
+            <input type="button" value="{% trans 'Create Team' %}">
+        </a>
+        <a href="/team/join-team/">
+            <input type="button" value="{% trans 'Join a team' %}">
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+{% endblock %}

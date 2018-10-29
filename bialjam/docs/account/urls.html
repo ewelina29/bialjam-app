@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>urls.py</title>
+  <link rel="stylesheet" href="../pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>urls.py</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">views</span> <span class="k">as</span> <span class="n">auth_views</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.views</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">PasswordResetView</span><span class="p">,</span>
+    <span class="n">PasswordResetDoneView</span><span class="p">,</span>
+    <span class="n">PasswordResetConfirmView</span><span class="p">,</span>
+    <span class="n">PasswordResetCompleteView</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">app_name</span> <span class="o">=</span> <span class="s1">&#39;account&#39;</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^login/$&#39;</span><span class="p">,</span> <span class="n">auth_views</span><span class="o">.</span><span class="n">login</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;template_name&#39;</span><span class="p">:</span> <span class="s1">&#39;account/login.html&#39;</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;login&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^logout/$&#39;</span><span class="p">,</span> <span class="n">auth_views</span><span class="o">.</span><span class="n">logout</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;next_page&#39;</span><span class="p">:</span> <span class="s1">&#39;/&#39;</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;logout&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^signup/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">signup</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signup&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^details/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">update_profile</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;update_profile&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^users_list/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">users_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;users_list&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^user_details/(?P&lt;pk&gt;[^/d]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">users_details</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;user_details&#39;</span><span class="p">),</span>
+
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^change-password/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">change_password</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;change_password&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^remove-user/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">remove_user</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;remove_user&quot;</span><span class="p">),</span>
+
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^password_reset/$&#39;</span><span class="p">,</span>
+        <span class="n">PasswordResetView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s1">&#39;account/password_reset_form.html&#39;</span><span class="p">,</span> <span class="n">email_template_name</span><span class="o">=</span><span class="s1">&#39;account/password_reset_email.html&#39;</span><span class="p">,</span> <span class="n">success_url</span><span class="o">=</span><span class="s1">&#39;/accounts/password_reset/done/&#39;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;password_reset&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^password_reset/done/$&#39;</span><span class="p">,</span>
+        <span class="n">PasswordResetDoneView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s1">&#39;account/password_reset_done.html&#39;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;password_reset_done&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^reset/(?P&lt;uidb64&gt;[0-9A-Za-z_\-]+)/(?P&lt;token&gt;[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$&#39;</span><span class="p">,</span>
+        <span class="n">PasswordResetConfirmView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s1">&#39;account/password_reset_confirm.html&#39;</span><span class="p">,</span>
+        <span class="n">success_url</span><span class="o">=</span><span class="s1">&#39;/accounts/reset/done/&#39;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;password_reset_confirm&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^reset/done/$&#39;</span><span class="p">,</span>
+        <span class="n">PasswordResetCompleteView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="n">template_name</span><span class="o">=</span><span class="s1">&#39;account/password_reset_complete.html&#39;</span><span class="p">),</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;password_reset_complete&#39;</span><span class="p">),</span>
+
+<span class="p">]</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>

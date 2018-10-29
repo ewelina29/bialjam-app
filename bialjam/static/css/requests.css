@@ -1,0 +1,174 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+a{
+    color: #000000;
+}
+a:hover{
+    color: #000000;
+}
+p{
+    margin-bottom: 0!important;
+}
+button{
+    background-color: transparent;
+    border: 0!important;
+}
+#requests_container{
+    background-color: #7B7979;
+    font-family: siteFont;
+    /*height: 100%;*/
+    padding: 0!important;
+}
+#info{
+    display: flex;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    border-bottom: solid #202020 1px;
+    width: 100%;
+}
+/*#info:hover{*/
+    /*background-color: #bbbbbb;*/
+    /*color: #F4E009;*/
+/*}*/
+#avatar{
+    max-height: 4vw;
+    max-width: 7vw;
+    margin-left: 3vw;
+    margin-right: 2vw;
+}
+#name{
+    font-size: 2vw;
+    text-decoration: none;
+}
+#message{
+    font-size: 1.5vw;
+    text-decoration: none;
+}
+.nexttext {
+    text-align: right;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #333;
+    width: 100%;
+    display: block;
+}
+.nexttext:hover{
+    color: #202020;
+}
+.prevtext {
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #333;
+    width: 100%;
+}
+.prevtext:hover{
+    color: #202020;
+
+}
+.pagetext {
+    padding: 0px;
+    margin: 0px;
+    font-size: 2vw;
+    font-family: siteFont;
+    text-align: center;
+    color: #333;
+    width: 100%;
+    display: block;
+}
+.pagetext:hover{
+    color: #202020;
+
+}
+.remove-padding{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+
+.tab-button{
+    font-family: siteFont;
+
+}
+#inactiveTab{
+    background-color: #7B7B7B;
+}
+#activeTab{
+    background-color: #b1b1b1;
+}
+
+#inactiveTab:hover{
+    background-color: #bbbbbb
+}
+.title{
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin: 0!important;
+}
+.tab-container{
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0!important;
+    height: 70vh;
+}
+#team_name{
+    width: 100%;
+    padding-top: 1vw;
+    font-size: 3.5vw;
+    text-align: center;
+    font-family: siteFont;
+}
+.info_header{
+    width: 100%;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
+    font-size: 2.0vw;
+    text-align: center;
+    font-family: siteFont;
+}
+
+
+.messages {
+    font-family: siteFont;
+    background-color: #FCEE82;
+    padding: 1vw;
+    border-radius: 5px;
+    font-size: 2vw;
+    margin-top: 15px;
+}
+.list-container{
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+.list_scrollable{
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0!important;
+    height: 53vh;
+    overflow-y: scroll;
+
+}
+
+.padding-set-10{
+    padding: 10px;
+}
+
+.action-button:hover{
+    color: #FCEE82;
+    text-decoration: none;
+}
+
+.action-button{
+    font-size: 1.8vw;
+    text-decoration: none;
+}

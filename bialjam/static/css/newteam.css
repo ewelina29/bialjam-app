@@ -1,0 +1,186 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+
+body {
+    font-family: siteFont;
+}
+
+button:focus, input:focus, select:focus {
+    outline: none;
+}
+
+option {
+    font-size: 1.2vw;
+}
+
+p {
+    margin: 0px;
+    color: #FFFFFF;
+}
+
+option {
+    background-color: #D3D2D2;
+}
+
+input {
+    background-color: #D3D2D2;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    padding-left: 5px;
+}
+
+input[type=file] {
+    width: 100%;
+    display: block;
+    font-size: 1.2vw;
+
+
+}
+
+select {
+    background-color: #D3D2D2;
+    width: 100%;
+    border: 0px;
+
+}
+textarea{
+    border: 0px;
+
+}
+option {
+    padding-left: 5px;
+
+}
+
+.inputdiv {
+    display: block;
+    padding: 0px;
+}
+
+.textlabel {
+    color: #FFFFFF;
+    font-size: 1.5vw;
+    margin: 0px;
+}
+
+#headertext {
+    text-align: center;
+    font-size: 3vw;
+}
+
+#container {
+    background-color: #7B7B7B;
+    display: block;
+    height: 100%;
+    padding: 0vw !important;
+}
+
+#buttoncontainer {
+    padding: 5px 0;
+}
+
+.savebutton {
+    padding: 0.5vw 0vw;
+    width: 100%;
+    background-color: #FCEE82;
+    border: 0px;
+    font-size: 1.2vw;
+}
+
+#second {
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0 !important;
+    height: 73vh;
+}
+
+#info-text {
+    height: 8vw;
+    width: 100%;
+    text-align: left;
+    background-color: #D3D2D2;
+    padding-left: 5px;
+
+}
+
+#id_members {
+    height: 8vw;
+    overflow: auto;
+}
+
+.remove-padding {
+    padding: 0px;
+}
+
+#img-def {
+    width: 80%;
+    height: auto;
+    max-height: 10vw;
+}
+
+#input-img {
+    padding-top: 3vw;
+}
+
+#info-text {
+    /*height: 40% !important;*/
+    /*width:50%;*/
+    text-align: start;
+    vertical-align: top;
+}
+
+.tab-button {
+    font-family: siteFont;
+}
+
+.tab-button:hover {
+    background-color: #bbbbbb;
+
+}
+
+#inactiveTab {
+    background-color: #b1b1b1;
+}
+
+.title {
+    font-size: 2vw;
+    text-align: center;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    margin: 0 !important;
+    color: #000000;
+
+}
+
+.tab-container {
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0 !important;
+    height: 73vh;
+}
+
+#inactiveTab {
+    background-color: #7B7B7B;
+}
+
+#inactiveTab:hover{
+    background-color: #BBBBBB;
+}
+
+#activeTab {
+    background-color: #B1b1b1;
+}
+
+.messages {
+    font-family: siteFont;
+    background-color: #FCEE82;
+    padding: 1vw;
+    border-radius: 5px;
+    font-size: 2vw;
+    margin-top: 15px;
+}

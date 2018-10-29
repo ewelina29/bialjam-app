@@ -1,0 +1,82 @@
+@font-face {
+    font-family: siteFont;
+    src: url("/static/fonts/TitilliumWeb-Bold.ttf");
+}
+a{
+    color: #000000;
+}
+a:hover{
+    color: #000000;
+}
+.list-scrollable{
+    background-color: #bbbbbb;
+    font-family: siteFont;
+    padding: 0!important;
+    height: 67vh;
+    overflow-y: scroll;
+
+}
+.users-text{
+    font-family: siteFont;
+    background-color: #bbbbbb;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: bold;
+    width: 100%;
+    border-bottom: solid #202020 1px;
+    margin: 0!important;
+    padding: 1vw 0 1vw 0;
+}
+.img-team{
+    max-height: 4vw;
+    max-width: 7vw;
+    margin-left: 3vw;
+    margin-right: 2vw;
+}
+#name{
+    font-size: 2vw;
+    font-family: siteFont;
+    color: #333;
+}
+#name:hover{
+    color: #FCEE82;
+}
+#info{
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    border-bottom: solid #202020 1px;
+    width: 100%;
+}
+
+#account-container {
+    background-color: #7b7979;
+    font-size: 1vw;
+    height: 100%;
+}
+
+
+
+
+
+#confirm-button {
+    padding: 0.5vw 0vw;
+    width: 30%;
+    background-color: #FCEE82;
+    border: 0px;
+    font-size: 1.2vw;
+}
+
+#remove-user-container {
+    font-size: 2.0vw;
+    margin-top: 8vw;
+    text-align: center;
+    font-family: siteFont;
+}
+
+#remove-user {
+    background-color: #7b7979;
+    height: 100%;
+}
+.padding-set-0{
+    padding: 0!important;
+}

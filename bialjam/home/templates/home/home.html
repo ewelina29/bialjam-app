@@ -1,0 +1,62 @@
+{% extends "template.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/home.css' %}">
+    <div class="button-line-container">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 column-property">
+            <div class="button-possiton">
+                <a class="home-button" href="/post/list/">
+                    <img src="{% static '/icons/forumicon.svg' %}" class="button-img">
+                    <p class="button-text">{% trans 'Posts' %}</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 column-property">
+            <div class="button-possiton">
+                <a class="home-button" href="/vip/jury">
+                    <img src="{% static '/icons/jury.svg' %}" class="button-img">
+                    <p class="button-text">{% trans 'Jury/Speakers' %}</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 column-property">
+            <div class="button-possiton">
+                <a class="home-button" href="/information">
+                    <img src="{% static '/icons/bialjamicon.png' %}" class="button-img">
+                    <p class="button-text">{% trans 'About us' %}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="button-line-container">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 column-property">
+            <div class="button-possiton-sec">
+                <a class="home-button" href="/gallery/albums">
+                    <img src="{% static '/icons/galleryicon.svg' %}" class="button-img">
+                    <p class="button-text">{% trans 'Gallery' %}</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 column-property">
+            <div class="button-possiton-sec">
+                <a class="home-button" href="/games/list">
+                    <img src="{% static '/icons/padicon.svg' %}" class="button-img">
+                    <p class="button-text">{% trans 'Games' %}</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 column-property">
+            <div class="button-possiton-sec">
+                <a class="home-button" href="/team/teams">
+                    <img src="{% static '/icons/teams.svg' %}" class="button-img">
+                    <p class="button-text">{% trans 'Teams' %}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
