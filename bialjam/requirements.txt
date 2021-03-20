@@ -9,7 +9,7 @@ django-registration==2.3
 docutils==0.14
 idna==2.6
 imagesize==1.0.0
-Jinja2==2.10
+Jinja2==2.11.3
 Mako==1.0.7
 Markdown==2.4.1
 MarkupSafe==1.0
