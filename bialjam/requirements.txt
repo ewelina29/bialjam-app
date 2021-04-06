@@ -5,7 +5,7 @@ chardet==3.0.4
 confusable-homoglyphs==2.0.2
 Django==1.11.7
 django-password-reset==1.0
-django-registration==2.3
+django-registration==3.1.2
 docutils==0.14
 idna==2.6
 imagesize==1.0.0
